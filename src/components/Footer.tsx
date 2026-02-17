@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { motion } from "framer-motion";
 import { Eye, Users, TrendingUp, Github, Linkedin, Mail, Heart } from "lucide-react";
 import anime from "animejs";
 
