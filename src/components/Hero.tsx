@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import AnimatedText from "./AnimatedText";
 import anime from "animejs";
+import TypingCodeBlock from "./TypingCodeBlock";
 
 interface HeroProps {
   onNavigate: (section: string) => void;
@@ -348,63 +349,7 @@ export default function Hero({ onNavigate }: HeroProps) {
           <span className="text-[12px] bg-[#0d1117] rounded px-3 py-2 text-[#dcdcdc]"> BI Tools</span>
         </div>
         <div className="bg-[rgba(13,17,23,0.5)] rounded-lg p-5 font-mono text-[14px] leading-relaxed border border-[#333] h-[350px] overflow-auto text-[#dcdcdc]">
-          <pre className="whitespace-pre-wrap">
-            <span style={{ color: '#c678dd' }}>import</span> pandas <span style={{ color: '#c678dd' }}>as</span> pd
-            {'\n'}
-            <span style={{ color: '#c678dd' }}>import</span> numpy  <span style={{ color: '#c678dd' }}>as</span> np
-            {'\n'}
-            <span style={{ color: '#c678dd' }}>import</span> sqlalchemy <span style={{ color: '#c678dd' }}>as</span> sql
-            {'\n'}
-            <span style={{ color: '#c678dd' }}>import</span> seaborn <span style={{ color: '#c678dd' }}>as</span> sns
-            {'\n'}
-            <span style={{ color: '#c678dd' }}>import</span> pytorch  <span style={{ color: '#c678dd' }}>as</span> torch
-            {'\n'}
-            <span style={{ color: '#c678dd' }}>import</span> scipy <span style={{ color: '#c678dd' }}>as</span> sp
-            {'\n'}
-            {'\n'}
-            <span style={{ color: '#c678dd' }}>def</span> generate_business_insights(engine):
-            {'\n'}
-            {'    '}<span style={{ color: '#6a6a75', fontStyle: 'italic' }}># Extract: Pulling targeted growth metrics via SQL</span>
-            {'\n'}
-            {'    '}query = <span style={{ color: '#98c379' }}>"""</span>
-            {'\n'}
-            <span style={{ color: '#98c379' }}>SELECT date, revenue, churn_rate </span>
-            {'\n'}
-            <span style={{ color: '#98c379' }}>FROM monthly_report </span>
-            {'\n'}
-            <span style={{ color: '#98c379' }}>WHERE region = 'Global'</span>
-            {'\n'}
-            <span style={{ color: '#98c379' }}>"""</span>
-            {'\n'}
-            {'    '}df = pd.read_sql(query, engine)
-            {'\n'}
-            {'    '}<span style={{ color: '#6a6a75', fontStyle: 'italic' }}># Transform: Cleaning data and calculating KPIs</span>
-            {'\n'}
-            {'    '}df['growth_pct'] = df['revenue'].pct_change()
-            {'\n'}
-            {'    '}<span style={{ color: '#6a6a75', fontStyle: 'italic' }}># Load: Returning interactive visualization</span>
-            {'\n'}
-            {'    '}<span style={{ color: '#c678dd' }}>return</span> create_dynamic_dashboard(df)
-            {'\n'}
-            {'\n'}
-            <span style={{ color: '#c678dd' }}>def</span> predict_market_trends(data):
-            {'\n'}
-            {'    '}<span style={{ color: '#6a6a75', fontStyle: 'italic' }}># Preprocessing messy business data</span>
-            {'\n'}
-            {'    '}X, y = preprocess_features(data)
-            {'\n'}
-            {'    '}<span style={{ color: '#6a6a75', fontStyle: 'italic' }}># Training the predictive model</span>
-            {'\n'}
-            {'    '}model = RandomForestRegressor(n_estimators=100)
-            {'\n'}
-            {'    '}model.fit(X_train, y_train)
-            {'\n'}
-            {'    '}<span style={{ color: '#6a6a75', fontStyle: 'italic' }}># Returning actionable forecasts</span>
-            {'\n'}
-            {'    '}forecast = model.predict(future_dates)
-            {'\n'}
-            {'    '}<span style={{ color: '#c678dd' }}>return</span> forecast
-          </pre>
+          <TypingCodeBlock />
         </div>
       </div>
     </div>
