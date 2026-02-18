@@ -281,6 +281,8 @@ export default function Hero({ onNavigate }: HeroProps) {
         
         {/* Grid pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(42,42,58,0.3)_1px,transparent_1px),linear-gradient(90deg,rgba(42,42,58,0.3)_1px,transparent_1px)] bg-[size:50px_50px] opacity-20" />
+
+        
         
         {/* Floating particles */}
         <div ref={particlesRef} className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -308,7 +310,7 @@ export default function Hero({ onNavigate }: HeroProps) {
           {/* Animated headline with animejs */}
           <div ref={headlineRef} className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
             <AnimatedText
-              text="I turn messy data into"
+              text="I turn raw data into"
               animation="letterByLetter"
               delay={300}
               duration={600}
@@ -316,7 +318,7 @@ export default function Hero({ onNavigate }: HeroProps) {
             />
             <span className="gradient-text ml-2">
               <AnimatedText
-                text="hiring decisions"
+                text="revenue driving insights"
                 animation="wave"
                 delay={1200}
                 duration={800}
@@ -326,16 +328,87 @@ export default function Hero({ onNavigate }: HeroProps) {
             </span>
           </div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xl text-[var(--text-secondary)] mb-8 max-w-2xl"
-          >
-            Data Analyst with expertise in Python, SQL, Excel and BI tools. 
-            I build interactive dashboards and predictive models that 
-            drive measurable business outcomes.
-          </motion.p>
+           
+    <div className="w-full max-w-3xl mx-auto">
+      <div className="card bg-black border border-[#0d1117] rounded-xl p-6 shadow-2xl hover:shadow-[0_25px_60px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 backdrop-blur-md">
+        <div className="flex items-center gap-3 mb-5">
+          <div className="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+          <div className="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+          <div className="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+        </div>
+        <h3 className="text-[20px] font-bold text-[#e6e6ef] mb-4">Data Analyst Portfolio</h3>
+        <p className="text-[#b0b0b0] text-[15px] leading-relaxed mb-7">
+          <span className="text-[#e6b566] font-medium">Full-stack Data Analytics: From SQL queries to Executive Dashboards.</span>
+          
+        </p>
+        <div className="flex flex-wrap gap-3 mb-6">
+          <span className="text-[12px] bg-[#0d1117] rounded px-3 py-2 text-[#dcdcdc]">SQL </span>
+          <span className="text-[12px] bg-[#0d1117] rounded px-3 py-2 text-[#dcdcdc]">Excel</span>
+          <span className="text-[12px] bg-[#0d1117] rounded px-3 py-2 text-[#dcdcdc]">Python </span>
+          <span className="text-[12px] bg-[#0d1117] rounded px-3 py-2 text-[#dcdcdc]"> BI Tools</span>
+        </div>
+        <div className="bg-[rgba(13,17,23,0.5)] rounded-lg p-5 font-mono text-[14px] leading-relaxed border border-[#333] h-[350px] overflow-auto text-[#dcdcdc]">
+          <pre className="whitespace-pre-wrap">
+            <span style={{ color: '#c678dd' }}>import</span> pandas <span style={{ color: '#c678dd' }}>as</span> pd
+            {'\n'}
+            <span style={{ color: '#c678dd' }}>import</span> numpy  <span style={{ color: '#c678dd' }}>as</span> np
+            {'\n'}
+            <span style={{ color: '#c678dd' }}>import</span> sqlalchemy <span style={{ color: '#c678dd' }}>as</span> sql
+            {'\n'}
+            <span style={{ color: '#c678dd' }}>import</span> seaborn <span style={{ color: '#c678dd' }}>as</span> sns
+            {'\n'}
+            <span style={{ color: '#c678dd' }}>import</span> pytorch  <span style={{ color: '#c678dd' }}>as</span> torch
+            {'\n'}
+            <span style={{ color: '#c678dd' }}>import</span> scipy <span style={{ color: '#c678dd' }}>as</span> sp
+            {'\n'}
+            {'\n'}
+            <span style={{ color: '#c678dd' }}>def</span> generate_business_insights(engine):
+            {'\n'}
+            {'    '}<span style={{ color: '#6a6a75', fontStyle: 'italic' }}># Extract: Pulling targeted growth metrics via SQL</span>
+            {'\n'}
+            {'    '}query = <span style={{ color: '#98c379' }}>"""</span>
+            {'\n'}
+            <span style={{ color: '#98c379' }}>SELECT date, revenue, churn_rate </span>
+            {'\n'}
+            <span style={{ color: '#98c379' }}>FROM monthly_report </span>
+            {'\n'}
+            <span style={{ color: '#98c379' }}>WHERE region = 'Global'</span>
+            {'\n'}
+            <span style={{ color: '#98c379' }}>"""</span>
+            {'\n'}
+            {'    '}df = pd.read_sql(query, engine)
+            {'\n'}
+            {'    '}<span style={{ color: '#6a6a75', fontStyle: 'italic' }}># Transform: Cleaning data and calculating KPIs</span>
+            {'\n'}
+            {'    '}df['growth_pct'] = df['revenue'].pct_change()
+            {'\n'}
+            {'    '}<span style={{ color: '#6a6a75', fontStyle: 'italic' }}># Load: Returning interactive visualization</span>
+            {'\n'}
+            {'    '}<span style={{ color: '#c678dd' }}>return</span> create_dynamic_dashboard(df)
+            {'\n'}
+            {'\n'}
+            <span style={{ color: '#c678dd' }}>def</span> predict_market_trends(data):
+            {'\n'}
+            {'    '}<span style={{ color: '#6a6a75', fontStyle: 'italic' }}># Preprocessing messy business data</span>
+            {'\n'}
+            {'    '}X, y = preprocess_features(data)
+            {'\n'}
+            {'    '}<span style={{ color: '#6a6a75', fontStyle: 'italic' }}># Training the predictive model</span>
+            {'\n'}
+            {'    '}model = RandomForestRegressor(n_estimators=100)
+            {'\n'}
+            {'    '}model.fit(X_train, y_train)
+            {'\n'}
+            {'    '}<span style={{ color: '#6a6a75', fontStyle: 'italic' }}># Returning actionable forecasts</span>
+            {'\n'}
+            {'    '}forecast = model.predict(future_dates)
+            {'\n'}
+            {'    '}<span style={{ color: '#c678dd' }}>return</span> forecast
+          </pre>
+        </div>
+      </div>
+    </div>
+  
 
           {/* Animated skill tags with anime.js */}
           <div ref={skillTagsRef} className="flex flex-wrap gap-3 mb-10">

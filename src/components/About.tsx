@@ -2,10 +2,6 @@ import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import {
   Award,
-  Users,
-  TrendingUp,
-  Target,
-  Calendar,
   Download,
 } from "lucide-react";
 import anime from "animejs";
@@ -14,9 +10,7 @@ export default function About() {
   const sectionRef = useRef<HTMLElement>(null);
   const profileCardRef = useRef<HTMLDivElement>(null);
   const decorativeBlursRef = useRef<HTMLDivElement>(null);
-  const statsRef = useRef<HTMLDivElement>(null);
   const bioCardsRef = useRef<HTMLDivElement>(null);
-  const skillsListRef = useRef<HTMLUListElement>(null);
   const headerTextRef = useRef<HTMLSpanElement>(null);
   const profileCircleRef = useRef<HTMLDivElement>(null);
 
@@ -88,70 +82,6 @@ export default function About() {
     });
   }, []);
 
-  // Anime.js: Stats counter and entrance animation
-  useEffect(() => {
-    if (!statsRef.current) return;
-
-    const statCards = statsRef.current.querySelectorAll(".stat-card");
-    
-    anime.set(statCards, {
-      opacity: 0,
-      scale: 0.8,
-      translateY: 20
-    });
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Staggered entrance
-            anime({
-              targets: statCards,
-              opacity: [0, 1],
-              scale: [0.8, 1],
-              translateY: [20, 0],
-              delay: anime.stagger(100),
-              duration: 800,
-              easing: "easeOutElastic(1, .5)"
-            });
-
-            // Counter animation for stat values
-            statCards.forEach((card) => {
-              const valueEl = card.querySelector(".stat-value");
-              if (valueEl) {
-                const text = valueEl.textContent || "";
-                const numMatch = text.match(/\d+/);
-                if (numMatch) {
-                  const targetNum = parseInt(numMatch[0]);
-                  const suffix = text.replace(/\d+/, "");
-                  
-                  const obj = { value: 0 };
-                  anime({
-                    targets: obj,
-                    value: targetNum,
-                    round: 1,
-                    duration: 2000,
-                    delay: 400,
-                    easing: "easeOutExpo",
-                    update: function() {
-                      valueEl.textContent = Math.round(obj.value) + suffix;
-                    }
-                  });
-                }
-              }
-            });
-
-            observer.disconnect();
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    observer.observe(statsRef.current);
-    return () => observer.disconnect();
-  }, []);
-
   // Anime.js: Bio cards sequential entrance
   useEffect(() => {
     if (!bioCardsRef.current) return;
@@ -185,54 +115,6 @@ export default function About() {
     );
 
     observer.observe(bioCardsRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  // Anime.js: Skills list staggered reveal
-  useEffect(() => {
-    if (!skillsListRef.current) return;
-
-    const items = skillsListRef.current.querySelectorAll("li");
-    
-    anime.set(items, {
-      opacity: 0,
-      translateX: -20
-    });
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            anime({
-              targets: items,
-              opacity: [0, 1],
-              translateX: [-20, 0],
-              delay: anime.stagger(80),
-              duration: 600,
-              easing: "easeOutExpo"
-            });
-
-            // Animate bullet points
-            const bullets = skillsListRef.current?.querySelectorAll(".bullet-arrow");
-            if (bullets) {
-              anime({
-                targets: bullets,
-                translateX: [-10, 0],
-                opacity: [0, 1],
-                delay: anime.stagger(80, { start: 100 }),
-                duration: 400,
-                easing: "easeOutExpo"
-              });
-            }
-
-            observer.disconnect();
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    observer.observe(skillsListRef.current);
     return () => observer.disconnect();
   }, []);
 
@@ -315,7 +197,11 @@ export default function About() {
                   className="w-48 h-48 mb-6 rounded-full overflow-hidden border-4 border-[var(--accent-primary)] p-1"
                 >
                   <div className="w-full h-full rounded-full bg-[var(--bg-secondary)] flex items-center justify-center">
-                    <span className="text-6xl">👨‍💻</span>
+                                        <img
+                      src="/Aminuddin_pic.png"
+                      alt="Aminuddin Profile"
+                      className="w-full h-full rounded-full object-cover"
+                    />
                   </div>
                 </div>
 
@@ -345,74 +231,93 @@ export default function About() {
             </div>
           </div>
 
-          {/* Bio & Philosophy */}
+          {/* Experience & Certifications */}
           <div ref={bioCardsRef} className="flex-1 space-y-6">
+            {/* Experience 1: Mas Awana */}
             <div className="bio-card bg-[var(--bg-card)]/15 backdrop-blur-sm rounded-xl p-6 border border-[var(--border-color)]/50">
-              <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-                <Target className="text-[var(--accent-primary)]" />
-                My Analytical Philosophy
-              </h3>
-              <p className="text-[var(--text-secondary)] leading-relaxed mb-4">
-                "
-                <span className="text-[var(--text-primary)] font-medium">
-                  I believe clean data &gt; complex models.
-                </span>
-                " In a world obsessed with sophisticated algorithms, I focus on
-                the fundamentals: understanding the data, the business question,
-                and delivering actionable insights that stakeholders can
-                actually use.
-              </p>
-              <p className="text-[var(--text-secondary)] leading-relaxed">
-                Every analysis starts with a question, not a tool. Whether it is
-                predicting churn, optimizing inventory, or identifying revenue
-                opportunities, I approach each problem with curiosity and rigor.
-              </p>
-            </div>
-
-            {/* Stats */}
-            <div ref={statsRef} className="grid grid-cols-2 gap-4">
-              {[
-                { icon: Award, label: "Projects Completed", value: "10+" },
-                { icon: Users, label: "Happy Stakeholders", value: "10+" },
-                { icon: TrendingUp, label: "Business Impact", value: "RM 4k+" },
-                { icon: Calendar, label: "Years Experience", value: "2+" },
-              ].map((stat) => (
-                <div
-                  key={stat.label}
-                  className="stat-card bg-[var(--bg-card)]/15 backdrop-blur-sm rounded-xl p-4 border border-[var(--border-color)]/50"
-                >
-                  <stat.icon                    className="text-[var(--accent-primary)] mb-2"
-                    size={24}
-                  />
-                  <p className="stat-value text-2xl font-bold">{stat.value}</p>
-                  <p className="text-sm text-[var(--text-secondary)]">
-                    {stat.label}
-                  </p>
+              <div className="flex items-start gap-4 mb-4">
+                <div className="w-12 h-12 rounded-lg overflow-hidden flex items-center justify-center flex-shrink-0 bg-[var(--bg-secondary)]">
+                  <img src="/logo_mas.png" alt="Mas Awana Logo" className="w-full h-full object-contain" />
                 </div>
-              ))}
-            </div>
-
-            {/* What I bring */}
-            <div className="bio-card bg-[var(--bg-card)]/15 backdrop-blur-sm rounded-xl p-6 border border-[var(--border-color)]/50">
-              <h4 className="font-semibold mb-3">What I Bring to Your Team:</h4>
-              <ul ref={skillsListRef} className="space-y-2 text-[var(--text-secondary)]">
+                <div>
+                  <h3 className="text-lg font-bold">Section Leader – Warehouse Operations</h3>
+                  <p className="text-[var(--accent-primary)] font-medium">Mas Awana Services Sdn Bhd — Penang International Airport</p>
+                  <p className="text-[var(--text-secondary)] text-sm">May 2024 – Dec 2025</p>
+                </div>
+              </div>
+              <ul className="space-y-2 text-[var(--text-secondary)] text-sm">
                 <li className="flex items-start gap-2">
-                  <span className="bullet-arrow text-[var(--accent-primary)]">▸</span>
-                  Strong SQL and Python for data manipulation and analysis
+                  <span className="text-[var(--accent-primary)]">▸</span>
+                  Led time-sensitive logistics operations while ensuring 100% compliance with IATA regulations for Dangerous Goods handling.
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="bullet-arrow text-[var(--accent-primary)]">▸</span>
-                  Interactive dashboard development (Power BI, Tableau)
+                  <span className="text-[var(--accent-primary)]">▸</span>
+                  Used Excel-based WMS to track real-time inventory, generate reports, and enforce FIFO/FEFO stock rotation.
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="bullet-arrow text-[var(--accent-primary)]">▸</span>
-                  Machine learning for predictive analytics
+                  <span className="text-[var(--accent-primary)]">▸</span>
+                  Optimized warehouse layout for fast-moving items, reducing picker travel time and increasing throughput.
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="bullet-arrow text-[var(--accent-primary)]">▸</span>
-                  Business acumen to translate data into decisions
+                  <span className="text-[var(--accent-primary)]">▸</span>
+                  Managed a 60% surge in shipment volume during peak season while maintaining a 99.9% in-stock rate.
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[var(--accent-primary)]">▸</span>
+                  Maintained 90% inventory accuracy through regular cycle counts and audits.
                 </li>
               </ul>
+            </div>
+
+            
+
+            {/* Experience 2: Resonac */}
+            <div className="bio-card bg-[var(--bg-card)]/15 backdrop-blur-sm rounded-xl p-6 border border-[var(--border-color)]/50">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="w-12 h-12 rounded-lg overflow-hidden flex items-center justify-center flex-shrink-0 bg-[var(--bg-secondary)]">
+                  <img src="/logo_res.png" alt="Resonac Logo" className="w-full h-full object-contain" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold">Quality Control Specialist</h3>
+                  <p className="text-[var(--accent-primary)] font-medium">Resonac Materials Malaysia — Perai, Penang</p>
+                  <p className="text-[var(--text-secondary)] text-sm">Jun 2020 – Apr 2024</p>
+                </div>
+              </div>
+              <ul className="space-y-2 text-[var(--text-secondary)] text-sm">
+                <li className="flex items-start gap-2">
+                  <span className="text-[var(--accent-primary)]">▸</span>
+                  Conducted 100% quality testing on production samples to ensure product conformity.
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[var(--accent-primary)]">▸</span>
+                  Documented non-conformances and generated weekly reports to support root-cause analysis.
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[var(--accent-primary)]">▸</span>
+                  Streamlined inter-departmental handoffs by managing final sample approvals and clear communication channels.
+                </li>
+              </ul>
+            </div>
+
+            {/* Certifications */}
+            <div className="bio-card bg-[var(--bg-card)]/15 backdrop-blur-sm rounded-xl p-6 border border-[var(--border-color)]/50">
+              <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                <Award className="text-[var(--accent-primary)]" />
+                Certifications
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {[
+                  { name: "Google", cert: "Advanced Data Analytics" },
+                  { name: "Nexperts Academy", cert: "AI & ML Bootcamp" },
+                  { name: "EMC", cert: "Certificate In Artificial Intelligence (MBOT)" },
+                  { name: "365DataScience", cert: "Certificate in Power BI & SQL" },
+                ].map((cert) => (
+                  <div key={cert.name} className="bg-[var(--bg-secondary)]/30 rounded-lg p-3 border border-[var(--border-color)]/30">
+                    <p className="text-[var(--accent-primary)] font-semibold text-sm">{cert.name}</p>
+                    <p className="text-[var(--text-secondary)] text-xs">{cert.cert}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
