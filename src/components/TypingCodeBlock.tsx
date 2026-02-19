@@ -19,7 +19,7 @@ const COLORS = {
 const KEYWORDS = ['import', 'from', 'as', 'def', 'class', 'return', 'if', 'elif', 'else', 'for', 'while', 'try', 'except', 'finally', 'with', 'as', 'pass', 'break', 'continue', 'and', 'or', 'not', 'in', 'is', 'None', 'True', 'False', 'lambda', 'yield', 'raise', 'assert'];
 
 // Python built-ins
-const BUILTINS = ['pd', 'np', 'sql', 'sns', 'torch', 'sp', 'print', 'len', 'range', 'enumerate', 'zip', 'map', 'filter', 'sorted', 'sum', 'min', 'max', 'abs', 'open', 'input', 'type', 'isinstance'];
+const BUILTINS = ['pd', 'np', 'sql', 'sns', 'torch', 'sp', 'print', 'len', 'range', 'enumerate', 'zip', 'map', 'filter', 'sorted', 'sum', 'min', 'max', 'abs', 'open', 'input', 'type', 'isinstance','accuracy_score', 'confusion_matrix',];
 
 // Tokenize and highlight a line of Python code
 const highlightLine = (line: string): React.ReactNode => {
@@ -129,11 +129,11 @@ const highlightLine = (line: string): React.ReactNode => {
 export default function TypingCodeBlock() {
   const { displayedLines, isDeleting } = useTypingAnimation({
     lines: codeLines,
-    typingSpeed: 75,
-    deletingSpeed: 15,
-    pauseAfterComplete: 100,
-    pauseBeforeDelete: 150,
-    pauseBeforeRestart: 50,
+    typingSpeed: 20,           // Fast typing (ms per character)
+    deletingSpeed: 20,          // fast deletion (ms per character)
+    pauseAfterComplete: 100,   // Brief pause after typing completes
+    pauseBeforeDelete: 150,    // Short pause before starting deletion
+    pauseBeforeRestart: 50,    // Minimal pause before restarting loop
   });
 
   return (
@@ -161,26 +161,36 @@ const codeLines = [
   "import seaborn as sns",
   "import pytorch as torch",
   "import scipy as sp",
+  "from sklearn.ensemble import RandomForestClassifier",
+  "from sklearn.metrics import accuracy_score, confusion_matrix",
+
+  "\n",
   
   "def generate_business_insights(engine):",
+  "\n",
   "    # Extract: Pulling targeted growth metrics via SQL",
   "    query = \"\"\"",
   "SELECT date, revenue, churn_rate",
   "FROM monthly_report",
   "WHERE region = 'Global'",
   "\"\"\"",
+  "\n",
   "    df = pd.read_sql(query, engine)",
   "    # Transform: Cleaning data and calculating KPIs",
   "    df['growth_pct'] = df['revenue'].pct_change()",
+  "    df['churn_rate'] = df['churn_rate'].astype(float)",
+  "\n",
   "    # Load: Returning interactive visualization",
   "    return create_dynamic_dashboard(df)",
-  
+  "\n",
   "def predict_market_trends(data):",
   "    # Preprocessing messy business data",
   "    X, y = preprocess_features(data)",
+  "\n",
   "    # Training the predictive model",
   "    model = RandomForestRegressor(n_estimators=100)",
   "    model.fit(X_train, y_train)",
+  "\n",
   "    # Returning actionable forecasts",
   "    forecast = model.predict(future_dates)",
   "    return forecast"

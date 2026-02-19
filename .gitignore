@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# MCP / Continue.dev config (local development)
+.continue
+mcp*.json
+mcp*.yaml
+mcp*.yml

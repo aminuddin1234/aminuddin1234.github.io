@@ -20,10 +20,11 @@ interface TypingState {
 export function useTypingAnimation(config: TypingConfig) {
   const {
     lines,
-    typingSpeed = 40,
-    deletingSpeed = 20,
-    pauseBeforeDelete = 1500,
-    pauseBeforeRestart = 500,
+    typingSpeed = 25,
+    deletingSpeed = 25,
+    pauseAfterComplete = 100,
+    pauseBeforeDelete = 150,
+    pauseBeforeRestart = 50,
   } = config;
 
   const [state, setState] = useState<TypingState>({
@@ -53,15 +54,15 @@ export function useTypingAnimation(config: TypingConfig) {
 
     const { displayedLines, currentLineIndex, currentCharIndex, isDeleting } = state;
 
-    // Typing phase
+    // Typing phase - only when NOT complete and NOT deleting
     if (!isDeleting && !isComplete) {
       // Check if we've completed all lines
       if (currentLineIndex >= lines.length) {
         setIsComplete(true);
-        // Pause before starting deletion
+        // Pause after complete before starting deletion
         const pauseTimer = setTimeout(() => {
-          setState((prev) => ({ ...prev, isDeleting: true, isPaused: false }));
-        }, pauseBeforeDelete);
+          setState((prev) => ({ ...prev, isDeleting: true }));
+        }, pauseAfterComplete + pauseBeforeDelete);
         return () => clearTimeout(pauseTimer);
       }
 
@@ -77,14 +78,13 @@ export function useTypingAnimation(config: TypingConfig) {
             currentLineIndex: prev.currentLineIndex + 1,
             currentCharIndex: 0,
           }));
-        }, typingSpeed * 2); // Small pause at end of line
+        }, typingSpeed * 2);
         return () => clearTimeout(timer);
       }
 
       // Type next character
       const timer = setTimeout(() => {
         const updatedLines = [...displayedLines];
-        // Update last line or add new line
         if (updatedLines.length === currentLineIndex) {
           updatedLines.push(currentLine.slice(0, currentCharIndex + 1));
         } else {
@@ -101,8 +101,8 @@ export function useTypingAnimation(config: TypingConfig) {
       return () => clearTimeout(timer);
     }
 
-    // Deleting phase
-    if (isDeleting) {
+    // Deleting phase - runs when isComplete OR isDeleting
+    if (isComplete || isDeleting) {
       // Check if all lines are deleted - restart typing loop
       if (displayedLines.length === 0) {
         // Pause before restarting the typing animation
@@ -152,6 +152,7 @@ export function useTypingAnimation(config: TypingConfig) {
     lines,
     typingSpeed,
     deletingSpeed,
+    pauseAfterComplete,
     pauseBeforeDelete,
     pauseBeforeRestart,
     isComplete,
