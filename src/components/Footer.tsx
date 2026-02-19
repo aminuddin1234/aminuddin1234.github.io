@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Eye, Users, TrendingUp, Github, Linkedin, Mail, Heart } from "lucide-react";
+import { Eye, Users, TrendingUp, Github, Linkedin, Mail, Heart, Clock } from "lucide-react";
 import anime from "animejs";
 
 export default function Footer() {
+  const [timeSpent, setTimeSpent] = useState(0);
   const [stats, setStats] = useState({
     visitors: Math.floor(Math.random() * 50) + 10,
-    recruiters: Math.floor(Math.random() * 20) + 5,
     pageViews: Math.floor(Math.random() * 200) + 50,
   });
 
@@ -15,6 +15,32 @@ export default function Footer() {
   const socialLinksRef = useRef<HTMLDivElement>(null);
   const heartRef = useRef<SVGSVGElement>(null);
   const statsValuesRef = useRef<HTMLDivElement>(null);
+
+  // Track time spent on site
+  useEffect(() => {
+    // Check if there's a start time in sessionStorage
+    const startTime = sessionStorage.getItem('siteStartTime');
+    
+    if (!startTime) {
+      // First visit - set the start time
+      sessionStorage.setItem('siteStartTime', Date.now().toString());
+    } else {
+      // Returning visitor - calculate time spent
+      const elapsed = Math.floor((Date.now() - parseInt(startTime)) / 60000);
+      setTimeSpent(elapsed);
+    }
+
+    // Update time every minute
+    const interval = setInterval(() => {
+      const currentStartTime = sessionStorage.getItem('siteStartTime');
+      if (currentStartTime) {
+        const elapsed = Math.floor((Date.now() - parseInt(currentStartTime)) / 60000);
+        setTimeSpent(elapsed);
+      }
+    }, 60000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   // Anime.js: Brand name glow animation
   useEffect(() => {
@@ -115,6 +141,35 @@ export default function Footer() {
     return () => clearTimeout(timeout);
   }, []);
 
+  // Anime.js: Clock icon rotating animation
+  useEffect(() => {
+    if (!analyticsPanelRef.current) return;
+
+    const clockIcon = analyticsPanelRef.current.querySelector(".clock-icon");
+    if (!clockIcon) return;
+
+    // Initial rotation animation
+    anime({
+      targets: clockIcon,
+      rotate: 360,
+      duration: 2000,
+      easing: "easeInOutSine"
+    });
+
+    // Continuous rotation
+    const timeout = setTimeout(() => {
+      anime({
+        targets: clockIcon,
+        rotate: [0, 360],
+        duration: 3000,
+        loop: true,
+        easing: "linear"
+      });
+    }, 2000);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
   // Anime.js: Social links entrance
   useEffect(() => {
     if (!socialLinksRef.current) return;
@@ -198,7 +253,6 @@ export default function Footer() {
     const interval = setInterval(() => {
       setStats(prev => ({
         visitors: prev.visitors + Math.floor(Math.random() * 3),
-        recruiters: prev.recruiters + Math.floor(Math.random() * 2),
         pageViews: prev.pageViews + Math.floor(Math.random() * 10),
       }));
     }, 30000);
@@ -232,10 +286,10 @@ export default function Footer() {
             
             <div className="stat-item text-center">
               <div className="flex items-center justify-center gap-2 mb-1">
-                <TrendingUp size={16} className="stat-icon text-[var(--accent-secondary)]" />
-                <span className="stat-value text-2xl font-bold">{stats.recruiters}</span>
+                <Clock size={16} className="stat-icon clock-icon text-[var(--accent-secondary)]" />
+                <span className="stat-value text-2xl font-bold">{timeSpent}</span>
               </div>
-              <p className="text-xs text-[var(--text-secondary)]">Recruiters visiting</p>
+              <p className="text-xs text-[var(--text-secondary)]">Minutes on site</p>
             </div>
             
             <div className="stat-item text-center">
@@ -266,7 +320,7 @@ export default function Footer() {
           {/* Social Links */}
           <div ref={socialLinksRef} className="flex gap-4 mb-8">
             <a
-              href="https://github.com"
+              href="https://github.com/aminuddin1234"
               target="_blank"
               rel="noopener noreferrer"
               onMouseEnter={(e) => handleSocialHover(e.currentTarget)}
@@ -276,7 +330,7 @@ export default function Footer() {
               <Github size={20} />
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/muhammad-aminuddin-mab987"
               target="_blank"
               rel="noopener noreferrer"
               onMouseEnter={(e) => handleSocialHover(e.currentTarget)}

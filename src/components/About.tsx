@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import {
   Award,
-  Download,
+  FileDown,
 } from "lucide-react";
 import anime from "animejs";
 
@@ -119,7 +119,7 @@ export default function About() {
   }, []);
 
   // Anime.js: Download button hover effect
-  const handleDownloadHover = (element: HTMLButtonElement) => {
+  const handleDownloadHover = (element: HTMLAnchorElement) => {
     anime({
       targets: element,
       scale: 1.05,
@@ -140,7 +140,7 @@ export default function About() {
     }
   };
 
-  const handleDownloadLeave = (element: HTMLButtonElement) => {
+  const handleDownloadLeave = (element: HTMLAnchorElement) => {
     anime({
       targets: element,
       scale: 1,
@@ -219,14 +219,16 @@ export default function About() {
                 </div>
 
                 {/* Resume Download Button - Centered */}
-                <button 
-                  onMouseEnter={(e) => handleDownloadHover(e.currentTarget)}
-                  onMouseLeave={(e) => handleDownloadLeave(e.currentTarget)}
-                  className="btn-primary flex items-center gap-2 px-6 py-3 rounded-xl"
-                >
-                  <Download size={18} />
-                  Download Resume
-                </button>
+    <a 
+      href="/Amin_Samsudin_Resume.pdf"
+      download="Amin_Samsudin_Resume.pdf"
+      onMouseEnter={(e) => handleDownloadHover(e.currentTarget)}
+      onMouseLeave={(e) => handleDownloadLeave(e.currentTarget)}
+      className="btn-primary flex items-center gap-2 px-6 py-3 rounded-xl cursor-pointer"
+    >
+      <FileDown size={18} />
+      Download Resume
+    </a>
               </div>
             </div>
           </div>

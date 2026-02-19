@@ -319,7 +319,7 @@ export default function Hero({ onNavigate }: HeroProps) {
             />
             <span className="gradient-text ml-2">
               <AnimatedText
-                text="revenue driving insights"
+                text="Business Insights"
                 animation="wave"
                 delay={1200}
                 duration={800}

@@ -239,10 +239,10 @@ export default function Contact() {
   };
 
   const hiringTypes = [
-    { id: "full-time", label: "Full-time Data Analyst Role", projectSuggestion: "Check out my Superstore Sales Analysis and Customer Churn Prediction projects - they demonstrate end-to-end analytics workflow." },
-    { id: "contract", label: "Contract/Project Work", projectSuggestion: "I would love to discuss your data challenges. My SQL Portfolio and EDA Toolkit show rapid insight generation capabilities." },
-    { id: "consulting", label: "Consulting Engagement", projectSuggestion: "My interactive dashboards (Cafe Sales, Household Income) showcase visualization best practices I can bring to your team." },
-    { id: "networking", label: "Just want to connect", projectSuggestion: "Always happy to discuss analytics trends, tools, or opportunities!" },
+    { id: "full-time", label: "Hiring for Data Analyst Position", projectSuggestion: "Check out my Household Income Analysis, Cafe Sales Dashboard, and Superstore Profit Dashboard - they demonstrate end-to-end analytics from raw data to business insights." },
+    { id: "project", label: "Looking for Data Project Help", projectSuggestion: "I would love to help transform your data into actionable insights. My SQL Layoffs Analysis and Excel Bike Purchase Analysis showcase rapid insight generation." },
+    { id: "insights", label: "Turn My Data into Business Insights", projectSuggestion: "My interactive dashboards (Power BI Sales Dashboard, Tableau Cafe Sales) showcase how I transform raw data into clear, actionable business recommendations." },
+    { id: "networking", label: "Just want to connect", projectSuggestion: "Always happy to discuss analytics trends, data tools, or opportunities!" },
   ];
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -338,7 +338,7 @@ export default function Contact() {
               <h3 className="text-xl font-bold mb-6">Follow Me</h3>
               <div ref={socialLinksRef} className="flex gap-4">
                 <a
-                  href="https://github.com"
+                  href="https://github.com/aminuddin1234"
                   target="_blank"
                   rel="noopener noreferrer"
                   onMouseEnter={(e) => handleSocialHover(e.currentTarget)}
@@ -349,7 +349,7 @@ export default function Contact() {
                   <span>GitHub</span>
                 </a>
                 <a
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/in/muhammad-aminuddin-mab987"
                   target="_blank"
                   rel="noopener noreferrer"
                   onMouseEnter={(e) => handleSocialHover(e.currentTarget)}

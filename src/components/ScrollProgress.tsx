@@ -17,13 +17,21 @@ export default function ScrollProgress({ activeSection }: ScrollProgressProps) {
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = (window.scrollY / totalHeight) * 100;
-      setScrollProgress(progress);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+          const progress = totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0;
+          setScrollProgress(progress);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -33,6 +41,7 @@ export default function ScrollProgress({ activeSection }: ScrollProgressProps) {
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 gradient-bg z-[60]"
         style={{ scaleX: scrollProgress / 100, transformOrigin: "0%" }}
+        transition={{ type: "spring", stiffness: 100, damping: 30, mass: 0.5 }}
       />
 
       {/* Dot navigation */}
