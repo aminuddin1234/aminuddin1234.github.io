@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Eye, Users, TrendingUp, Github, Linkedin, Mail, Heart, Clock } from "lucide-react";
+import { Eye, Users, Github, Linkedin, Mail, Heart, Clock } from "lucide-react";
 import anime from "animejs";
 
 export default function Footer() {

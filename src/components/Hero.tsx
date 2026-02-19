@@ -4,15 +4,370 @@ import { ArrowRight } from "lucide-react";
 import AnimatedText from "./AnimatedText";
 import anime from "animejs";
 import TypingCodeBlock from "./TypingCodeBlock";
+import styled from "styled-components";
 
 interface HeroProps {
   onNavigate: (section: string) => void;
 }
 
-const skills = ["Python", "SQL", "Power BI", "Tableau", "Machine Learning", "Data Visualization"];
+// Capybara Loader Component
+const CapybaraLoader = () => {
+  return (
+    <StyledWrapper>
+      <div className="capybaraloader">
+        <div className="capybara">
+          <div className="capyhead">
+            <div className="capyear">
+              <div className="capyear2" />
+            </div>
+            <div className="capyear" />
+            <div className="capymouth">
+              <div className="capylips" />
+              <div className="capylips" />
+            </div>
+            <div className="capyeye" />
+            <div className="capyeye" />
+          </div>
+          <div className="capyleg" />
+          <div className="capyleg2" />
+          <div className="capyleg2" />
+          <div className="capy" />
+        </div>
+        <div className="loader">
+          <div className="loaderline" />
+        </div>
+        {/* Walking animation container */}
+        <div className="walking-capy">
+          <div className="capybara-walk">
+            <div className="capy-body">
+              <div className="capy-head">
+                <div className="capy-ear" />
+                <div className="capy-ear" />
+                <div className="capy-eye" />
+                <div className="capy-eye" />
+                <div className="capy-nose" />
+              </div>
+              <div className="capy-legs">
+                <div className="capy-leg" />
+                <div className="capy-leg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </StyledWrapper>
+  );
+};
+
+const StyledWrapper = styled.div`
+  .capybaraloader {
+    width: 14em;
+    height: 10em;
+    position: relative;
+    z-index: 1;
+    --color: rgb(204, 125, 45);
+    --color2: rgb(83, 56, 28);
+    transform: scale(0.75);
+  }
+  .capybara {
+    width: 100%;
+    height: 7.5em;
+    position: relative;
+    z-index: 1;
+  }
+  .loader {
+    width: 100%;
+    height: 2.5em;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+  .capy {
+    width: 85%;
+    height: 100%;
+    background: linear-gradient(var(--color), 90%, var(--color2));
+    border-radius: 45%;
+    position: relative;
+    z-index: 1;
+    animation: movebody 1s linear infinite;
+  }
+  .capyhead {
+    width: 7.5em;
+    height: 7em;
+    bottom: 0em;
+    right: 0em;
+    position: absolute;
+    background-color: var(--color);
+    z-index: 3;
+    border-radius: 3.5em;
+    box-shadow: -1em 0em var(--color2);
+    animation: movebody 1s linear infinite;
+  }
+  .capyear {
+    width: 2em;
+    height: 2em;
+    background: linear-gradient(-45deg, var(--color), 90%, var(--color2));
+    top: 0em;
+    left: 0em;
+    border-radius: 100%;
+    position: absolute;
+    overflow: hidden;
+    z-index: 3;
+  }
+  .capyear:nth-child(2) {
+    left: 5em;
+    background: linear-gradient(25deg, var(--color), 90%, var(--color2));
+  }
+  .capyear2 {
+    width: 100%;
+    height: 1em;
+    background-color: var(--color2);
+    bottom: 0em;
+    left: 0.5em;
+    border-radius: 100%;
+    position: absolute;
+    transform: rotate(-45deg);
+  }
+  .capymouth {
+    width: 3.5em;
+    height: 2em;
+    background-color: var(--color2);
+    position: absolute;
+    bottom: 0em;
+    left: 2.5em;
+    border-radius: 50%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0.5em;
+  }
+  .capylips {
+    width: 0.25em;
+    height: 0.75em;
+    border-radius: 100%;
+    transform: rotate(-45deg);
+    background-color: var(--color);
+  }
+  .capylips:nth-child(2) {
+    transform: rotate(45deg);
+  }
+  .capyeye {
+    width: 2em;
+    height: 0.5em;
+    background-color: var(--color2);
+    position: absolute;
+    bottom: 3.5em;
+    left: 1.5em;
+    border-radius: 5em;
+    transform: rotate(45deg);
+  }
+  .capyeye:nth-child(4) {
+    transform: rotate(-45deg);
+    left: 5.5em;
+    width: 1.75em;
+  }
+  .capyleg {
+    width: 6em;
+    height: 5em;
+    bottom: 0em;
+    left: 0em;
+    position: absolute;
+    background: linear-gradient(var(--color), 95%, var(--color2));
+    z-index: 2;
+    border-radius: 2em;
+    animation: movebody 1s linear infinite;
+  }
+  .capyleg2 {
+    width: 1.75em;
+    height: 3em;
+    bottom: 0em;
+    left: 3.25em;
+    position: absolute;
+    background: linear-gradient(var(--color), 80%, var(--color2));
+    z-index: 2;
+    border-radius: 0.75em;
+    box-shadow: inset 0em -0.5em var(--color2);
+    animation: moveleg 1s linear infinite;
+  }
+  .capyleg2:nth-child(3) {
+    width: 1.25em;
+    left: 0.5em;
+    height: 2em;
+    animation: moveleg2 1s linear infinite 0.075s;
+  }
+  @keyframes moveleg {
+    0% {
+      transform: rotate(-45deg) translateX(-5%);
+    }
+    50% {
+      transform: rotate(45deg) translateX(5%);
+    }
+    100% {
+      transform: rotate(-45deg) translateX(-5%);
+    }
+  }
+  @keyframes moveleg2 {
+    0% {
+      transform: rotate(45deg);
+    }
+    50% {
+      transform: rotate(-45deg);
+    }
+    100% {
+      transform: rotate(45deg);
+    }
+  }
+  @keyframes movebody {
+    0% {
+      transform: translateX(0%);
+    }
+    50% {
+      transform: translateX(2%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+  }
+    .loaderline {
+    width: 50em;
+    height: 0.5em;
+    border-top: 0.5em dashed var(--color2);
+    animation: moveline 10s linear infinite;
+  }
+  @keyframes moveline {
+    0% {
+      transform: translateX(0%);
+      opacity: 0%;
+    }
+    5% {
+      opacity: 100%;
+    }
+    95% {
+      opacity: 100%;
+    }
+    100% {
+      opacity: 0%;
+      transform: translateX(-70%);
+    }
+  }
+  
+  /* Walking Capybara on code preview */
+  .walking-capy {
+    position: absolute;
+    top: -30px;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .capybara-walk {
+    display: flex;
+    animation: walkAcross 8s linear infinite;
+  }
+  
+  .capy-body {
+    width: 50px;
+    height: 30px;
+    background: linear-gradient(135deg, #cc7d2d 0%, #53381c 100%);
+    border-radius: 15px;
+    position: relative;
+    flex-shrink: 0;
+  }
+  
+  .capy-head {
+    position: absolute;
+    right: -15px;
+    top: 0;
+    width: 22px;
+    height: 20px;
+    background: linear-gradient(135deg, #cc7d2d 0%, #53381c 100%);
+    border-radius: 10px;
+  }
+  
+  .capy-ear {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #53381c;
+    border-radius: 50%;
+    top: -3px;
+  }
+  
+  .capy-ear:first-child {
+    left: 2px;
+  }
+  
+  .capy-ear:last-child {
+    right: 2px;
+  }
+  
+  .capy-eye {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #1a1a1a;
+    border-radius: 50%;
+    top: 6px;
+  }
+  
+  .capy-eye:first-child {
+    left: 4px;
+  }
+  
+  .capy-eye:last-child {
+    right: 4px;
+  }
+  
+  .capy-nose {
+    position: absolute;
+    right: -3px;
+    top: 8px;
+    width: 5px;
+    height: 4px;
+    background: #3d2814;
+    border-radius: 2px;
+  }
+  
+  .capy-legs {
+    position: absolute;
+    bottom: -8px;
+    left: 5px;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .capy-leg {
+    width: 8px;
+    height: 10px;
+    background: #53381c;
+    border-radius: 4px;
+    animation: legMove 0.5s ease-in-out infinite alternate;
+  }
+  
+  .capy-leg:last-child {
+    animation-delay: 0.25s;
+  }
+  
+  @keyframes walkAcross {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(200px);
+    }
+  }
+  
+  @keyframes legMove {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-3px);
+    }
+  }
+`;
 
 export default function Hero({ onNavigate }: HeroProps) {
-  const skillTagsRef = useRef<HTMLDivElement>(null);
   const floatingElementsRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const greetingRef = useRef<HTMLDivElement>(null);
@@ -21,50 +376,7 @@ export default function Hero({ onNavigate }: HeroProps) {
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
   const particlesRef = useRef<HTMLDivElement>(null);
 
-  // Anime.js animations for skill tags
-  useEffect(() => {
-    if (!skillTagsRef.current) return;
-
-    const skillTags = skillTagsRef.current.querySelectorAll(".skill-tag");
-    
-    // Initial state
-    anime.set(skillTags, {
-      opacity: 0,
-      scale: 0.8,
-      translateY: 20
-    });
-
-    // Staggered entrance animation
-    anime({
-      targets: skillTags,
-      opacity: [0, 1],
-      scale: [0.8, 1],
-      translateY: [20, 0],
-      delay: anime.stagger(100, { start: 800 }),
-      duration: 600,
-      easing: "easeOutElastic(1, .6)"
-    });
-
-    // Hover scale effect
-    skillTags.forEach((tag) => {
-      tag.addEventListener("mouseenter", () => {
-        anime({
-          targets: tag,
-          scale: 1.1,
-          duration: 300,
-          easing: "easeOutExpo"
-        });
-      });
-      tag.addEventListener("mouseleave", () => {
-        anime({
-          targets: tag,
-          scale: 1,
-          duration: 300,
-          easing: "easeOutExpo"
-        });
-      });
-    });
-  }, []);
+  
 
   // Floating background elements animation
   useEffect(() => {
@@ -156,28 +468,7 @@ export default function Hero({ onNavigate }: HeroProps) {
     }
   }, []);
 
-  // Anime.js: Skill tags continuous wave motion
-  useEffect(() => {
-    if (!skillTagsRef.current) return;
-
-    const skillTags = skillTagsRef.current.querySelectorAll(".skill-tag");
-    
-    // Delayed start to allow entrance animation to complete first
-    const timeout = setTimeout(() => {
-      anime({
-        targets: skillTags,
-        translateY: [-3, 3, -3],
-        duration: 2000,
-        loop: true,
-        delay: anime.stagger(150),
-        easing: "easeInOutSine"
-      });
-    }, 2000);
-
-    return () => clearTimeout(timeout);
-  }, []);
-
-  // Anime.js: Arrow bounce animation
+    // Anime.js: Arrow bounce animation
   useEffect(() => {
     if (!arrowRef.current) return;
 
@@ -303,9 +594,15 @@ export default function Hero({ onNavigate }: HeroProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <p ref={greetingRef} className="text-[var(--accent-primary)] font-medium mb-4 inline-block">
-              👋 Hello, I'm Aminuddin!
-            </p>
+                          <div className="flex items-center gap-4 mb-4">
+                <p ref={greetingRef} className="text-[var(--accent-primary)] font-medium inline-block">
+                  👋 Hello, I'm Aminuddin!
+                </p>
+                {/* Capybara beside greeting */}
+                <div className="hidden md:block">
+                  <CapybaraLoader />
+                </div>
+              </div>
           </motion.div>
 
           {/* Animated headline with animejs */}
@@ -330,18 +627,19 @@ export default function Hero({ onNavigate }: HeroProps) {
           </div>
 
            
-    <div className="w-full max-w-3xl mx-auto">
-      <div className="card bg-black border border-[#0d1117] rounded-xl p-6 shadow-2xl hover:shadow-[0_25px_60px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 backdrop-blur-md">
-        <div className="flex items-center gap-3 mb-5">
-          <div className="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
-          <div className="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
-          <div className="w-3 h-3 rounded-full bg-[#27c93f]"></div>
-        </div>
-        <h3 className="text-[20px] font-bold text-[#e6e6ef] mb-4">Data Analyst Portfolio</h3>
-        <p className="text-[#b0b0b0] text-[15px] leading-relaxed mb-7">
-          <span className="text-[#e6b566] font-medium">Full-stack Data Analytics: From SQL queries to Executive Dashboards.</span>
-          
-        </p>
+                {/* Mac Preview */}
+      <div className="w-full max-w-3xl mx-auto">
+        <div className="card bg-black border border-[#0d1117] rounded-xl p-6 shadow-2xl hover:shadow-[0_25px_60px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 backdrop-blur-md">
+          <div className="flex items-center gap-3 mb-5">
+            <div className="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+            <div className="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+            <div className="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+          </div>
+          <h3 className="text-[20px] font-bold text-[#e6e6ef] mb-4">Data Analyst Portfolio</h3>
+          <p className="text-[#b0b0b0] text-[15px] leading-relaxed mb-7">
+            <span className="text-[#e6b566] font-medium">Full-stack Data Analytics: From SQL queries to Executive Dashboards.</span>
+            
+          </p>
         <div className="flex flex-wrap gap-3 mb-6">
           <span className="text-[12px] bg-[#0d1117] rounded px-3 py-2 text-[#dcdcdc]">SQL </span>
           <span className="text-[12px] bg-[#0d1117] rounded px-3 py-2 text-[#dcdcdc]">Excel</span>
@@ -353,19 +651,6 @@ export default function Hero({ onNavigate }: HeroProps) {
         </div>
       </div>
     </div>
-  
-
-          {/* Animated skill tags with anime.js */}
-          <div ref={skillTagsRef} className="flex flex-wrap gap-3 mb-10">
-            {skills.map((skill) => (
-              <span
-                key={skill}
-                className="skill-tag cursor-pointer"
-              >
-                {skill}
-              </span>
-            ))}
-          </div>
 
           {/* CTA Buttons with anime.js pulse */}
           <div ref={ctaRef} className="flex flex-wrap gap-4">
