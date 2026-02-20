@@ -267,23 +267,14 @@ export default function Hero({ onNavigate }: HeroProps) {
     });
   }, []);
 
-  // Anime.js: Headline glow pulse
+      // Interactive hover effect for headline - no heavy animations
   useEffect(() => {
     if (!headlineRef.current) return;
 
     const gradientText = headlineRef.current.querySelector(".gradient-text");
     if (gradientText) {
-      anime({
-        targets: gradientText,
-        textShadow: [
-          "0 0 10px rgba(99, 102, 241, 0.3), 0 0 20px rgba(139, 92, 246, 0.2)",
-          "0 0 25px rgba(99, 102, 241, 0.5), 0 0 50px rgba(139, 92, 246, 0.4)",
-          "0 0 10px rgba(99, 102, 241, 0.3), 0 0 20px rgba(139, 92, 246, 0.2)"
-        ],
-        duration: 2500,
-        loop: true,
-        easing: "easeInOutSine"
-      });
+      // Add a subtle hover glow effect via CSS
+      gradientText.classList.add("hover-glow");
     }
   }, []);
 
@@ -386,8 +377,8 @@ export default function Hero({ onNavigate }: HeroProps) {
         
         {/* Decorative blurs with anime.js floating animation */}
         <div ref={floatingElementsRef}>
-          <div className="floating-blur absolute top-1/4 left-1/4 w-96 h-96 bg-[var(--accent-primary)] rounded-full opacity-10 blur-3xl" />
-          <div className="floating-blur absolute bottom-1/4 right-1/4 w-96 h-96 bg-[var(--accent-secondary)] rounded-full opacity-10 blur-3xl" />
+          <div className="floating-blur absolute top-1/4 left-1/4 w-96 h-96 bg-[var(--accent-primary)] rounded-full opacity-10 blur-3xl will-change-transform" />
+          <div className="floating-blur absolute bottom-1/4 right-1/4 w-96 h-96 bg-[var(--accent-secondary)] rounded-full opacity-10 blur-3xl will-change-transform" />
         </div>
         
         {/* Grid pattern */}
@@ -397,12 +388,12 @@ export default function Hero({ onNavigate }: HeroProps) {
         
         {/* Floating particles */}
         <div ref={particlesRef} className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="particle absolute top-1/4 left-1/3 w-2 h-2 bg-[var(--accent-primary)] rounded-full opacity-50" />
-          <div className="particle absolute top-1/2 left-1/4 w-3 h-3 bg-[var(--accent-secondary)] rounded-full opacity-40" />
-          <div className="particle absolute top-3/4 left-2/3 w-2 h-2 bg-[var(--accent-primary)] rounded-full opacity-60" />
-          <div className="particle absolute top-1/3 left-3/4 w-2 h-2 bg-[var(--accent-secondary)] rounded-full opacity-50" />
-          <div className="particle absolute top-2/3 left-1/5 w-3 h-3 bg-[var(--accent-primary)] rounded-full opacity-40" />
-          <div className="particle absolute top-1/5 left-1/2 w-2 h-2 bg-[var(--accent-secondary)] rounded-full opacity-50" />
+          <div className="particle absolute top-1/4 left-1/3 w-2 h-2 bg-[var(--accent-primary)] rounded-full opacity-50 will-change-transform" />
+          <div className="particle absolute top-1/2 left-1/4 w-3 h-3 bg-[var(--accent-secondary)] rounded-full opacity-40 will-change-transform" />
+          <div className="particle absolute top-3/4 left-2/3 w-2 h-2 bg-[var(--accent-primary)] rounded-full opacity-60 will-change-transform" />
+          <div className="particle absolute top-1/3 left-3/4 w-2 h-2 bg-[var(--accent-secondary)] rounded-full opacity-50 will-change-transform" />
+          <div className="particle absolute top-2/3 left-1/5 w-3 h-3 bg-[var(--accent-primary)] rounded-full opacity-40 will-change-transform" />
+          <div className="particle absolute top-1/5 left-1/2 w-2 h-2 bg-[var(--accent-secondary)] rounded-full opacity-50 will-change-transform" />
         </div>
       </div>
 
@@ -414,7 +405,7 @@ export default function Hero({ onNavigate }: HeroProps) {
             transition={{ duration: 0.6 }}
           >
                           <div className="flex items-center gap-4 mb-4">
-                <p ref={greetingRef} className="text-[var(--accent-primary)] font-medium inline-block">
+                <p ref={greetingRef} className="text-[var(--accent-primary)] font-medium inline-block will-change-transform">
                   👋 Hello, I'm Aminuddin!
                 </p>
                 </div>
@@ -423,7 +414,7 @@ export default function Hero({ onNavigate }: HeroProps) {
           {/* Animated headline with animejs */}
         <div ref={headlineRef} className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
           <GeneratingLoader />
-          <span className="gradient-text ml-2">
+          <span className="gradient-text ml-2 inline-block hover:scale-105 transition-transform duration-300 cursor-default">
             <AnimatedText
               text="Business Insights"
                 animation="wave"
@@ -468,7 +459,7 @@ export default function Hero({ onNavigate }: HeroProps) {
               className="btn-primary flex items-center gap-2"
             >
               View My Work 
-              <ArrowRight ref={arrowRef} size={18} />
+              <ArrowRight ref={arrowRef} size={18} className="will-change-transform" />
             </button>
             <button
               onClick={() => onNavigate("contact")}
@@ -497,7 +488,7 @@ export default function Hero({ onNavigate }: HeroProps) {
             <motion.div
               animate={{ y: [0, 12, 0] }}
               transition={{ repeat: Infinity, duration: 1.5 }}
-              className="scroll-dot w-1 h-3 bg-[var(--accent-primary)] rounded-full mt-2"
+              className="scroll-dot w-1 h-3 bg-[var(--accent-primary)] rounded-full mt-2 will-change-transform"
             />
           </motion.div>
         </motion.div>

@@ -91,43 +91,10 @@ export default function Projects({}: ProjectsProps) {
     return () => observer.disconnect();
   }, []);
 
-  // Anime.js: Glowing text animation for "Projects" title
+      // Interactive hover effect for Projects title
   useEffect(() => {
     if (!glowingTextRef.current) return;
-
-    const textElement = glowingTextRef.current;
-    
-    // Initial state
-    anime.set(textElement, {
-      textShadow: "0 0 0px rgba(99, 102, 241, 0)"
-    });
-
-    // Continuous glow pulse animation
-    anime({
-      targets: textElement,
-      textShadow: [
-        "0 0 5px rgba(99, 102, 241, 0.3), 0 0 10px rgba(99, 102, 241, 0.2), 0 0 15px rgba(99, 102, 241, 0.1)",
-        "0 0 20px rgba(99, 102, 241, 0.8), 0 0 40px rgba(99, 102, 241, 0.6), 0 0 60px rgba(99, 102, 241, 0.4)",
-        "0 0 10px rgba(99, 102, 241, 0.5), 0 0 20px rgba(99, 102, 241, 0.3), 0 0 30px rgba(99, 102, 241, 0.2)",
-        "0 0 5px rgba(99, 102, 241, 0.3), 0 0 10px rgba(99, 102, 241, 0.2), 0 0 15px rgba(99, 102, 241, 0.1)"
-      ],
-      duration: 3000,
-      loop: true,
-      easing: "easeInOutSine"
-    });
-
-    // Optional: Add color pulse as well
-    anime({
-      targets: textElement,
-      color: [
-        "rgb(99, 102, 241)",
-        "rgb(139, 92, 246)",
-        "rgb(99, 102, 241)"
-      ],
-      duration: 4000,
-      loop: true,
-      easing: "easeInOutQuad"
-    });
+    glowingTextRef.current.classList.add("hover-glow");
   }, []);
 
   const filteredProjects = projects.filter((project) => {
@@ -402,9 +369,9 @@ function ProjectCard({ project, index, isExpanded, onToggle }: ProjectCardProps)
         return (
     <div
       ref={cardRef}
-      onMouseEnter={handleCardHover}
-      onMouseLeave={handleCardLeave}
-      className="project-card bg-[var(--bg-card)]/55 backdrop-blur-sm rounded-xl overflow-hidden border border-[var(--border-color)]/50 cursor-pointer"
+          onMouseEnter={handleCardHover}
+    onMouseLeave={handleCardLeave}
+    className="project-card bg-[var(--bg-card)]/55 backdrop-blur-sm rounded-xl overflow-hidden border border-[var(--border-color)]/50 cursor-pointer will-change-transform"
     >
       {/* Project Header */}
       <div className="p-6">

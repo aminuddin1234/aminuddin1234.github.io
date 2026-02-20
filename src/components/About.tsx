@@ -14,22 +14,10 @@ export default function About() {
   const headerTextRef = useRef<HTMLSpanElement>(null);
   const profileCircleRef = useRef<HTMLDivElement>(null);
 
-  // Anime.js: Header text glow animation
+  // Interactive hover effect for header
   useEffect(() => {
     if (!headerTextRef.current) return;
-
-    anime({
-      targets: headerTextRef.current,
-      textShadow: [
-        "0 0 5px rgba(99, 102, 241, 0.3)",
-        "0 0 20px rgba(99, 102, 241, 0.6)",
-        "0 0 30px rgba(139, 92, 246, 0.4)",
-        "0 0 5px rgba(99, 102, 241, 0.3)"
-      ],
-      duration: 3000,
-      loop: true,
-      easing: "easeInOutSine"
-    });
+    headerTextRef.current.classList.add("hover-glow");
   }, []);
 
   // Anime.js: Profile card breathing/floating animation
@@ -171,8 +159,8 @@ export default function About() {
           className="text-center mb-12"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            About <span ref={headerTextRef} className="gradient-text cursor-default">Me</span>
-          </h2>
+      About <span ref={headerTextRef} className="gradient-text cursor-default will-change-transform">Me</span>
+    </h2>
         </motion.div>
 
         {/* Main Content */}

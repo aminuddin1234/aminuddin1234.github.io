@@ -213,10 +213,10 @@ export default function Skills({}: SkillsProps) {
           <div ref={skillsListRef} className="space-y-4">
             {skills.map((skill) => (
               <div
-                key={skill.name}
-                className="skill-card p-4 rounded-lg bg-[var(--bg-card)] border border-[var(--border-color)] transition-colors cursor-pointer"
-                onMouseEnter={(e) => handleSkillHover(skill, e.currentTarget)}
-                onMouseLeave={(e) => handleSkillLeave(e.currentTarget)}
+    key={skill.name}
+    className="skill-card p-4 rounded-lg bg-[var(--bg-card)] border border-[var(--border-color)] transition-colors cursor-pointer will-change-transform"
+    onMouseEnter={(e) => handleSkillHover(skill, e.currentTarget)}
+    onMouseLeave={(e) => handleSkillLeave(e.currentTarget)}
               >
                 <div className="flex items-center justify-between mb-2">
                   <span className="font-semibold">{skill.name}</span>
@@ -251,10 +251,10 @@ export default function Skills({}: SkillsProps) {
           <div ref={toolsGridRef} className="flex flex-wrap justify-center gap-4">
             {tools.map((tool) => (
               <div
-                key={tool.name}
-                className="tool-item flex items-center gap-2 px-4 py-3 bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] hover:border-[var(--accent-primary)] transition-colors cursor-pointer"
-                onMouseEnter={(e) => handleToolHover(e.currentTarget)}
-                onMouseLeave={(e) => handleToolLeave(e.currentTarget)}
+    key={tool.name}
+    className="tool-item flex items-center gap-2 px-4 py-3 bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] hover:border-[var(--accent-primary)] transition-colors cursor-pointer will-change-transform"
+    onMouseEnter={(e) => handleToolHover(e.currentTarget)}
+    onMouseLeave={(e) => handleToolLeave(e.currentTarget)}
               >
                 <span className="tool-icon text-2xl inline-block">{tool.icon}</span>
                 <span className="font-medium">{tool.name}</span>

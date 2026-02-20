@@ -37,9 +37,9 @@ export default function ScrollProgress({ activeSection }: ScrollProgressProps) {
 
   return (
     <>
-      {/* Progress bar at top */}
+      {/* Progress bar at top - optimized with will-change */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 gradient-bg z-[60]"
+        className="fixed top-0 left-0 right-0 h-1 gradient-bg z-[60] will-change-transform"
         style={{ scaleX: scrollProgress / 100, transformOrigin: "0%" }}
         transition={{ type: "spring", stiffness: 100, damping: 30, mass: 0.5 }}
       />

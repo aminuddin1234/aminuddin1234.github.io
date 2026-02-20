@@ -20,20 +20,28 @@ export default function StickyCTA({ activeSection, onNavigate }: StickyCTAProps)
   const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
+    let ticking = false;
+    
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      
-      // Hide when scrolling down, show when scrolling up
-      if (currentScrollY > lastScrollY && currentScrollY > 300) {
-        setIsVisible(false);
-      } else {
-        setIsVisible(true);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          
+          // Hide when scrolling down, show when scrolling up
+          if (currentScrollY > lastScrollY && currentScrollY > 300) {
+            setIsVisible(false);
+          } else {
+            setIsVisible(true);
+          }
+          
+          setLastScrollY(currentScrollY);
+          ticking = false;
+        });
+        ticking = true;
       }
-      
-      setLastScrollY(currentScrollY);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
@@ -67,7 +75,7 @@ export default function StickyCTA({ activeSection, onNavigate }: StickyCTAProps)
           <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="glass rounded-full px-6 py-3 flex items-center gap-4 shadow-lg shadow-[var(--accent-primary)]/20"
+            className="glass rounded-full px-6 py-3 flex items-center gap-4 shadow-lg shadow-[var(--accent-primary)]/20 will-change-transform"
           >
             <button
               onClick={() => onNavigate(getNextSection())}

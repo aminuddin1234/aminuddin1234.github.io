@@ -20,22 +20,10 @@ export default function Contact() {
   const formRef = useRef<HTMLFormElement>(null);
   const submitBtnRef = useRef<HTMLButtonElement>(null);
 
-  // Anime.js: Header text glow animation
+  // Interactive hover effect for header
   useEffect(() => {
     if (!headerTextRef.current) return;
-
-    anime({
-      targets: headerTextRef.current,
-      textShadow: [
-        "0 0 5px rgba(99, 102, 241, 0.3)",
-        "0 0 20px rgba(99, 102, 241, 0.6)",
-        "0 0 30px rgba(139, 92, 246, 0.4)",
-        "0 0 5px rgba(99, 102, 241, 0.3)"
-      ],
-      duration: 3000,
-      loop: true,
-      easing: "easeInOutSine"
-    });
+    headerTextRef.current.classList.add("hover-glow");
   }, []);
 
   // Anime.js: Contact info cards staggered entrance
@@ -287,7 +275,7 @@ export default function Contact() {
           className="text-center mb-12 w-full"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Let&apos;s <span ref={headerTextRef} className="gradient-text cursor-default">Connect</span>
+            Let&apos;s <span ref={headerTextRef} className="gradient-text cursor-default will-change-transform">Connect</span>
           </h2>
           <p className="text-[var(--text-secondary)] text-center w-full">
             Have a data challenge? Looking for a data analyst? Or just want to chat about analytics? I would love to hear from you.
@@ -297,7 +285,7 @@ export default function Contact() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Info */}
           <div ref={contactInfoRef} className="space-y-6">
-            <div className="contact-card bg-[var(--bg-card)]/25 backdrop-blur-sm rounded-xl p-6 border border-[var(--border-color)]/50">
+            <div className="contact-card bg-[var(--bg-card)]/25 backdrop-blur-sm rounded-xl p-6 border border-[var(--border-color)]/50 will-change-transform">
               <h3 className="text-xl font-bold mb-6">Get in Touch</h3>
               
               <div className="space-y-4">
@@ -334,7 +322,7 @@ export default function Contact() {
             </div>
 
             {/* Social Links */}
-            <div className="contact-card bg-[var(--bg-card)]/25 backdrop-blur-sm rounded-xl p-6 border border-[var(--border-color)]/50">
+            <div className="contact-card bg-[var(--bg-card)]/25 backdrop-blur-sm rounded-xl p-6 border border-[var(--border-color)]/50 will-change-transform">
               <h3 className="text-xl font-bold mb-6">Follow Me</h3>
               <div ref={socialLinksRef} className="flex gap-4">
                 <a
@@ -343,7 +331,7 @@ export default function Contact() {
                   rel="noopener noreferrer"
                   onMouseEnter={(e) => handleSocialHover(e.currentTarget)}
                   onMouseLeave={(e) => handleSocialLeave(e.currentTarget)}
-                  className="social-link flex items-center gap-3 px-4 py-3 bg-[var(--bg-secondary)]/25 backdrop-blur-sm rounded-lg hover:bg-[var(--accent-primary)] hover:text-[var(--bg-primary)] transition-all cursor-pointer"
+                  className="social-link flex items-center gap-3 px-4 py-3 bg-[var(--bg-secondary)]/25 backdrop-blur-sm rounded-lg hover:bg-[var(--accent-primary)] hover:text-[var(--bg-primary)] transition-all cursor-pointer will-change-transform"
                 >
                   <Github size={20} />
                   <span>GitHub</span>
@@ -354,7 +342,7 @@ export default function Contact() {
                   rel="noopener noreferrer"
                   onMouseEnter={(e) => handleSocialHover(e.currentTarget)}
                   onMouseLeave={(e) => handleSocialLeave(e.currentTarget)}
-                  className="social-link flex items-center gap-3 px-4 py-3 bg-[var(--bg-secondary)]/25 backdrop-blur-sm rounded-lg hover:bg-[var(--accent-primary)] hover:text-[var(--bg-primary)] transition-all cursor-pointer"
+                  className="social-link flex items-center gap-3 px-4 py-3 bg-[var(--bg-secondary)]/25 backdrop-blur-sm rounded-lg hover:bg-[var(--accent-primary)] hover:text-[var(--bg-primary)] transition-all cursor-pointer will-change-transform"
                 >
                   <Linkedin size={20} />
                   <span>LinkedIn</span>
@@ -363,7 +351,7 @@ export default function Contact() {
             </div>
 
             {/* Calendar Link */}
-            <div className="contact-card bg-[var(--bg-card)]/25 backdrop-blur-sm rounded-xl p-6 border border-[var(--border-color)]/50">
+            <div className="contact-card bg-[var(--bg-card)]/25 backdrop-blur-sm rounded-xl p-6 border border-[var(--border-color)]/50 will-change-transform">
               <h3 className="text-xl font-bold mb-2">Let&apos;s Schedule a Data Chat</h3>
               <p className="text-[var(--text-secondary)] mb-4">
                 Quick 15-minute call to discuss your data needs.
@@ -415,7 +403,7 @@ export default function Contact() {
 
             <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="form-field">
+                <div className="form-field will-change-transform">
                   <label className="block text-sm font-medium mb-2">Name</label>
                   <input
                     type="text"
@@ -429,7 +417,7 @@ export default function Contact() {
                     placeholder="Your name"
                   />
                 </div>
-                <div className="form-field">
+                <div className="form-field will-change-transform">
                   <label className="block text-sm font-medium mb-2">Email</label>
                   <input
                     type="email"
@@ -445,7 +433,7 @@ export default function Contact() {
                 </div>
               </div>
 
-              <div className="form-field">
+              <div className="form-field will-change-transform">
                 <label className="block text-sm font-medium mb-2">Subject</label>
                 <input
                   type="text"
@@ -460,7 +448,7 @@ export default function Contact() {
                 />
               </div>
 
-              <div className="form-field">
+              <div className="form-field will-change-transform">
                 <label className="block text-sm font-medium mb-2">Message</label>
                 <textarea
                   name="message"

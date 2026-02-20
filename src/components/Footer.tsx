@@ -42,22 +42,10 @@ export default function Footer() {
     return () => clearInterval(interval);
   }, []);
 
-  // Anime.js: Brand name glow animation
+  // Interactive hover effect for brand
   useEffect(() => {
     if (!brandRef.current) return;
-
-    anime({
-      targets: brandRef.current,
-      textShadow: [
-        "0 0 5px rgba(99, 102, 241, 0.4)",
-        "0 0 25px rgba(99, 102, 241, 0.7)",
-        "0 0 40px rgba(139, 92, 246, 0.5)",
-        "0 0 5px rgba(99, 102, 241, 0.4)"
-      ],
-      duration: 3500,
-      loop: true,
-      easing: "easeInOutSine"
-    });
+    brandRef.current.classList.add("hover-glow");
   }, []);
 
   // Anime.js: Heart pulse animation
@@ -325,7 +313,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               onMouseEnter={(e) => handleSocialHover(e.currentTarget)}
               onMouseLeave={(e) => handleSocialLeave(e.currentTarget)}
-              className="social-link p-2 rounded-full bg-[var(--bg-card)] hover:bg-[var(--accent-primary)] hover:text-[var(--bg-primary)] transition-all cursor-pointer"
+              className="social-link p-2 rounded-full bg-[var(--bg-card)] hover:bg-[var(--accent-primary)] hover:text-[var(--bg-primary)] transition-all cursor-pointer will-change-transform"
             >
               <Github size={20} />
             </a>
@@ -335,7 +323,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               onMouseEnter={(e) => handleSocialHover(e.currentTarget)}
               onMouseLeave={(e) => handleSocialLeave(e.currentTarget)}
-              className="social-link p-2 rounded-full bg-[var(--bg-card)] hover:bg-[var(--accent-primary)] hover:text-[var(--bg-primary)] transition-all cursor-pointer"
+              className="social-link p-2 rounded-full bg-[var(--bg-card)] hover:bg-[var(--accent-primary)] hover:text-[var(--bg-primary)] transition-all cursor-pointer will-change-transform"
             >
               <Linkedin size={20} />
             </a>
@@ -343,7 +331,7 @@ export default function Footer() {
               href="mailto:amiamin987@gmail.com"
               onMouseEnter={(e) => handleSocialHover(e.currentTarget)}
               onMouseLeave={(e) => handleSocialLeave(e.currentTarget)}
-              className="social-link p-2 rounded-full bg-[var(--bg-card)] hover:bg-[var(--accent-primary)] hover:text-[var(--bg-primary)] transition-all cursor-pointer"
+              className="social-link p-2 rounded-full bg-[var(--bg-card)] hover:bg-[var(--accent-primary)] hover:text-[var(--bg-primary)] transition-all cursor-pointer will-change-transform"
             >
               <Mail size={20} />
             </a>
