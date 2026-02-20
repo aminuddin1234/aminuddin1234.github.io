@@ -10,362 +10,181 @@ interface HeroProps {
   onNavigate: (section: string) => void;
 }
 
-// Capybara Loader Component
-const CapybaraLoader = () => {
+// Generating Loader Component for "I turn raw data into"
+const GeneratingLoader = () => {
   return (
-    <StyledWrapper>
-      <div className="capybaraloader">
-        <div className="capybara">
-          <div className="capyhead">
-            <div className="capyear">
-              <div className="capyear2" />
-            </div>
-            <div className="capyear" />
-            <div className="capymouth">
-              <div className="capylips" />
-              <div className="capylips" />
-            </div>
-            <div className="capyeye" />
-            <div className="capyeye" />
-          </div>
-          <div className="capyleg" />
-          <div className="capyleg2" />
-          <div className="capyleg2" />
-          <div className="capy" />
-        </div>
-        <div className="loader">
-          <div className="loaderline" />
-        </div>
-        {/* Walking animation container */}
-        <div className="walking-capy">
-          <div className="capybara-walk">
-            <div className="capy-body">
-              <div className="capy-head">
-                <div className="capy-ear" />
-                <div className="capy-ear" />
-                <div className="capy-eye" />
-                <div className="capy-eye" />
-                <div className="capy-nose" />
-              </div>
-              <div className="capy-legs">
-                <div className="capy-leg" />
-                <div className="capy-leg" />
-              </div>
-            </div>
-          </div>
-        </div>
+    <StyledGeneratingWrapper>
+      <div className="loader-wrapper">
+        <span className="loader-letter">I</span>
+        <span className="loader-letter" style={{width: '0.4em'}}> </span>
+        <span className="loader-letter">t</span>
+        <span className="loader-letter">u</span>
+        <span className="loader-letter">r</span>
+        <span className="loader-letter">n</span>
+        <span className="loader-letter" style={{width: '0.4em'}}> </span>
+        <span className="loader-letter">r</span>
+        <span className="loader-letter">a</span>
+        <span className="loader-letter">w</span>
+        <span className="loader-letter" style={{width: '0.4em'}}> </span>
+        <span className="loader-letter">d</span>
+        <span className="loader-letter">a</span>
+        <span className="loader-letter">t</span>
+        <span className="loader-letter">a</span>
+        <span className="loader-letter" style={{width: '0.4em'}}> </span>
+                <span className="loader-letter">i</span>
+        <span className="loader-letter">n</span>
+        <span className="loader-letter">t</span>
+        <span className="loader-letter">o</span>
+        {/* Colorful light bars */}
+        <div className="light-bar bar-1" />
+        <div className="light-bar bar-2" />
+        <div className="light-bar bar-3" />
+        <div className="light-bar bar-4" />
+        <div className="light-bar bar-5" />
+        <div className="light-bar bar-6" />
       </div>
-    </StyledWrapper>
+    </StyledGeneratingWrapper>
   );
 };
 
-const StyledWrapper = styled.div`
-  .capybaraloader {
-    width: 14em;
-    height: 10em;
+const StyledGeneratingWrapper = styled.div`
+  .loader-wrapper {
     position: relative;
-    z-index: 1;
-    --color: rgb(204, 125, 45);
-    --color2: rgb(83, 56, 28);
-    transform: scale(0.75);
-  }
-  .capybara {
-    width: 100%;
-    height: 7.5em;
-    position: relative;
-    z-index: 1;
-  }
-  .loader {
-    width: 100%;
-    height: 2.5em;
-    position: relative;
-    z-index: 1;
-    overflow: hidden;
-  }
-  .capy {
-    width: 85%;
-    height: 100%;
-    background: linear-gradient(var(--color), 90%, var(--color2));
-    border-radius: 45%;
-    position: relative;
-    z-index: 1;
-    animation: movebody 1s linear infinite;
-  }
-  .capyhead {
-    width: 7.5em;
-    height: 7em;
-    bottom: 0em;
-    right: 0em;
-    position: absolute;
-    background-color: var(--color);
-    z-index: 3;
-    border-radius: 3.5em;
-    box-shadow: -1em 0em var(--color2);
-    animation: movebody 1s linear infinite;
-  }
-  .capyear {
-    width: 2em;
-    height: 2em;
-    background: linear-gradient(-45deg, var(--color), 90%, var(--color2));
-    top: 0em;
-    left: 0em;
-    border-radius: 100%;
-    position: absolute;
-    overflow: hidden;
-    z-index: 3;
-  }
-  .capyear:nth-child(2) {
-    left: 5em;
-    background: linear-gradient(25deg, var(--color), 90%, var(--color2));
-  }
-  .capyear2 {
-    width: 100%;
-    height: 1em;
-    background-color: var(--color2);
-    bottom: 0em;
-    left: 0.5em;
-    border-radius: 100%;
-    position: absolute;
-    transform: rotate(-45deg);
-  }
-  .capymouth {
-    width: 3.5em;
-    height: 2em;
-    background-color: var(--color2);
-    position: absolute;
-    bottom: 0em;
-    left: 2.5em;
-    border-radius: 50%;
     display: flex;
-    justify-content: space-around;
     align-items: center;
-    padding: 0.5em;
-  }
-  .capylips {
-    width: 0.25em;
-    height: 0.75em;
-    border-radius: 100%;
-    transform: rotate(-45deg);
-    background-color: var(--color);
-  }
-  .capylips:nth-child(2) {
-    transform: rotate(45deg);
-  }
-  .capyeye {
-    width: 2em;
-    height: 0.5em;
-    background-color: var(--color2);
-    position: absolute;
-    bottom: 3.5em;
-    left: 1.5em;
-    border-radius: 5em;
-    transform: rotate(45deg);
-  }
-  .capyeye:nth-child(4) {
-    transform: rotate(-45deg);
-    left: 5.5em;
-    width: 1.75em;
-  }
-  .capyleg {
-    width: 6em;
-    height: 5em;
-    bottom: 0em;
-    left: 0em;
-    position: absolute;
-    background: linear-gradient(var(--color), 95%, var(--color2));
-    z-index: 2;
-    border-radius: 2em;
-    animation: movebody 1s linear infinite;
-  }
-  .capyleg2 {
-    width: 1.75em;
-    height: 3em;
-    bottom: 0em;
-    left: 3.25em;
-    position: absolute;
-    background: linear-gradient(var(--color), 80%, var(--color2));
-    z-index: 2;
-    border-radius: 0.75em;
-    box-shadow: inset 0em -0.5em var(--color2);
-    animation: moveleg 1s linear infinite;
-  }
-  .capyleg2:nth-child(3) {
-    width: 1.25em;
-    left: 0.5em;
-    height: 2em;
-    animation: moveleg2 1s linear infinite 0.075s;
-  }
-  @keyframes moveleg {
-    0% {
-      transform: rotate(-45deg) translateX(-5%);
-    }
-    50% {
-      transform: rotate(45deg) translateX(5%);
-    }
-    100% {
-      transform: rotate(-45deg) translateX(-5%);
-    }
-  }
-  @keyframes moveleg2 {
-    0% {
-      transform: rotate(45deg);
-    }
-    50% {
-      transform: rotate(-45deg);
-    }
-    100% {
-      transform: rotate(45deg);
-    }
-  }
-  @keyframes movebody {
-    0% {
-      transform: translateX(0%);
-    }
-    50% {
-      transform: translateX(2%);
-    }
-    100% {
-      transform: translateX(0%);
-    }
-  }
-    .loaderline {
-    width: 50em;
-    height: 0.5em;
-    border-top: 0.5em dashed var(--color2);
-    animation: moveline 10s linear infinite;
-  }
-  @keyframes moveline {
-    0% {
-      transform: translateX(0%);
-      opacity: 0%;
-    }
-    5% {
-      opacity: 100%;
-    }
-    95% {
-      opacity: 100%;
-    }
-    100% {
-      opacity: 0%;
-      transform: translateX(-70%);
-    }
-  }
-  
-  /* Walking Capybara on code preview */
-  .walking-capy {
-    position: absolute;
-    top: -30px;
-    left: 0;
-    width: 100%;
+    justify-content: flex-start;
+    height: 60px;
+    width: auto;
+    font-family: "Poppins", sans-serif;
+    font-size: 0.89em;
+    font-weight: 600;
+    user-select: none;
+    color: #fff;
     overflow: hidden;
   }
   
-  .capybara-walk {
-    display: flex;
-    animation: walkAcross 8s linear infinite;
-  }
-  
-  .capy-body {
-    width: 50px;
-    height: 30px;
-    background: linear-gradient(135deg, #cc7d2d 0%, #53381c 100%);
-    border-radius: 15px;
-    position: relative;
-    flex-shrink: 0;
-  }
-  
-  .capy-head {
+  /* Colorful light bars */
+  .light-bar {
     position: absolute;
-    right: -15px;
     top: 0;
-    width: 22px;
-    height: 20px;
-    background: linear-gradient(135deg, #cc7d2d 0%, #53381c 100%);
-    border-radius: 10px;
+    height: 100%;
+    width: 40px;
+    border-radius: 20px;
+    mix-blend-mode: screen;
+    filter: blur(8px);
+    opacity: 0.9;
   }
   
-  .capy-ear {
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    background: #53381c;
-    border-radius: 50%;
-    top: -3px;
+  .light-bar.bar-1 {
+    background: linear-gradient(90deg, #ff6b6b, #ff8e53);
+    animation: sweep-1 2s ease-in-out infinite;
+  }
+  .light-bar.bar-2 {
+    background: linear-gradient(90deg, #4ecdc4, #44a3aa);
+    animation: sweep-2 2.5s ease-in-out infinite;
+    animation-delay: 0.3s;
+  }
+  .light-bar.bar-3 {
+    background: linear-gradient(90deg, #a29bfe, #6c5ce7);
+    animation: sweep-3 1.8s ease-in-out infinite;
+    animation-delay: 0.6s;
+  }
+  .light-bar.bar-4 {
+    background: linear-gradient(90deg, #fd79a8, #e84393);
+    animation: sweep-4 2.2s ease-in-out infinite;
+    animation-delay: 0.9s;
+  }
+  .light-bar.bar-5 {
+    background: linear-gradient(90deg, #ffeaa7, #fdcb6e);
+    animation: sweep-5 1.9s ease-in-out infinite;
+    animation-delay: 1.2s;
+  }
+  .light-bar.bar-6 {
+    background: linear-gradient(90deg, #00b894, #00cec9);
+    animation: sweep-6 2.3s ease-in-out infinite;
+    animation-delay: 1.5s;
   }
   
-  .capy-ear:first-child {
-    left: 2px;
+  @keyframes sweep-1 {
+    0%, 100% { left: -50px; opacity: 0; }
+    10%, 90% { opacity: 0.8; }
+    50% { left: calc(100% + 50px); opacity: 0; }
+  }
+  @keyframes sweep-2 {
+    0%, 100% { left: -50px; opacity: 0; }
+    10%, 90% { opacity: 0.7; }
+    50% { left: calc(100% + 50px); opacity: 0; }
+  }
+  @keyframes sweep-3 {
+    0%, 100% { left: -50px; opacity: 0; }
+    10%, 90% { opacity: 0.85; }
+    50% { left: calc(100% + 50px); opacity: 0; }
+  }
+  @keyframes sweep-4 {
+    0%, 100% { left: -50px; opacity: 0; }
+    10%, 90% { opacity: 0.75; }
+    50% { left: calc(100% + 50px); opacity: 0; }
+  }
+  @keyframes sweep-5 {
+    0%, 100% { left: -50px; opacity: 0; }
+    10%, 90% { opacity: 0.8; }
+    50% { left: calc(100% + 50px); opacity: 0; }
+  }
+  @keyframes sweep-6 {
+    0%, 100% { left: -50px; opacity: 0; }
+    10%, 90% { opacity: 0.7; }
+    50% { left: calc(100% + 50px); opacity: 0; }
   }
   
-  .capy-ear:last-child {
-    right: 2px;
+    .loader-letter {
+    display: inline-block;
+    opacity: 0.35;
+    z-index: 2;
+    animation: letter-glow 3s infinite ease-in-out;
   }
   
-  .capy-eye {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: #1a1a1a;
-    border-radius: 50%;
-    top: 6px;
-  }
+  .loader-letter:nth-child(1) { animation-delay: 0s; }
+  .loader-letter:nth-child(2) { animation-delay: 0.1s; }
+  .loader-letter:nth-child(3) { animation-delay: 0.2s; }
+  .loader-letter:nth-child(4) { animation-delay: 0.3s; }
+  .loader-letter:nth-child(5) { animation-delay: 0.4s; }
+  .loader-letter:nth-child(6) { animation-delay: 0.5s; }
+  .loader-letter:nth-child(7) { animation-delay: 0.6s; }
+  .loader-letter:nth-child(8) { animation-delay: 0.7s; }
+  .loader-letter:nth-child(9) { animation-delay: 0.8s; }
+  .loader-letter:nth-child(10) { animation-delay: 0.9s; }
+  .loader-letter:nth-child(11) { animation-delay: 1.0s; }
+  .loader-letter:nth-child(12) { animation-delay: 1.1s; }
+  .loader-letter:nth-child(13) { animation-delay: 1.2s; }
+  .loader-letter:nth-child(14) { animation-delay: 1.3s; }
+  .loader-letter:nth-child(15) { animation-delay: 1.4s; }
+  .loader-letter:nth-child(16) { animation-delay: 1.5s; }
+  .loader-letter:nth-child(17) { animation-delay: 1.6s; }
+  .loader-letter:nth-child(18) { animation-delay: 1.7s; }
+  .loader-letter:nth-child(19) { animation-delay: 1.8s; }
   
-  .capy-eye:first-child {
-    left: 4px;
-  }
-  
-  .capy-eye:last-child {
-    right: 4px;
-  }
-  
-  .capy-nose {
-    position: absolute;
-    right: -3px;
-    top: 8px;
-    width: 5px;
-    height: 4px;
-    background: #3d2814;
-    border-radius: 2px;
-  }
-  
-  .capy-legs {
-    position: absolute;
-    bottom: -8px;
-    left: 5px;
-    display: flex;
-    gap: 20px;
-  }
-  
-  .capy-leg {
-    width: 8px;
-    height: 10px;
-    background: #53381c;
-    border-radius: 4px;
-    animation: legMove 0.5s ease-in-out infinite alternate;
-  }
-  
-  .capy-leg:last-child {
-    animation-delay: 0.25s;
-  }
-  
-  @keyframes walkAcross {
-    0% {
-      transform: translateX(-100%);
+  @keyframes letter-glow {
+    0%, 30% {
+      opacity: 0.35;
+      text-shadow: none;
     }
-    100% {
-      transform: translateX(200px);
+    35%, 45% {
+      opacity: 1;
+      text-shadow: 
+        0 0 10px currentColor,
+        0 0 20px currentColor,
+        0 0 30px currentColor;
+    }
+    55%, 100% {
+      opacity: 0.35;
+      text-shadow: none;
     }
   }
   
-  @keyframes legMove {
-    0% {
-      transform: translateY(0);
-    }
-    100% {
-      transform: translateY(-3px);
-    }
-  }
-`;
+      .loader-letter { color: #ffffff; }
+  `;
+
+// Capybara Loader - REMOVED (unused)
 
 export default function Hero({ onNavigate }: HeroProps) {
   const floatingElementsRef = useRef<HTMLDivElement>(null);
@@ -598,25 +417,15 @@ export default function Hero({ onNavigate }: HeroProps) {
                 <p ref={greetingRef} className="text-[var(--accent-primary)] font-medium inline-block">
                   👋 Hello, I'm Aminuddin!
                 </p>
-                {/* Capybara beside greeting */}
-                <div className="hidden md:block">
-                  <CapybaraLoader />
                 </div>
-              </div>
           </motion.div>
 
           {/* Animated headline with animejs */}
-          <div ref={headlineRef} className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+        <div ref={headlineRef} className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+          <GeneratingLoader />
+          <span className="gradient-text ml-2">
             <AnimatedText
-              text="I turn raw data into"
-              animation="letterByLetter"
-              delay={300}
-              duration={600}
-              className="inline-block"
-            />
-            <span className="gradient-text ml-2">
-              <AnimatedText
-                text="Business Insights"
+              text="Business Insights"
                 animation="wave"
                 delay={1200}
                 duration={800}
