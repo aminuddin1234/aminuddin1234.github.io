@@ -25,8 +25,6 @@ const wave3 = "M0,50 L360,50 C365,50 368,48 370,45 C375,38 380,25 385,35 C390,45
 const wave4 = "M0,50 L500,50 C505,50 508,48 510,45 C515,38 520,25 525,35 C530,45 535,50 540,50 C545,50 548,48 550,42 C555,32 560,15 565,25 C570,38 575,48 580,50 L800,50";
 const wave5 = "M0,50 L640,50 C645,50 648,48 650,45 C655,38 660,25 665,35 C670,45 675,50 680,50 C685,50 688,48 690,42 C695,32 700,15 705,25 C710,38 715,48 720,50 L800,50";
 
-const waves = [wave1, wave2, wave3, wave4, wave5];
-
 export default function Navbar({ activeSection, onNavigate }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
