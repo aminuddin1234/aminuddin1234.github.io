@@ -76,10 +76,10 @@ export default function Navbar({ activeSection, onNavigate }: NavbarProps) {
                   <stop offset="100%" stopColor="#ff6b9d" stopOpacity="0" />
                 </linearGradient>
                 <linearGradient id="waveGrad4" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#ffd93d" stopOpacity="0" />
-                  <stop offset="40%" stopColor="#ffd93d" stopOpacity="0.8" />
-                  <stop offset="60%" stopColor="#ffd93d" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#ffd93d" stopOpacity="0" />
+                  <stop offset="0%" stopColor="#b313b9" stopOpacity="0" />
+                  <stop offset="40%" stopColor="#b313b9" stopOpacity="0.8" />
+                  <stop offset="60%" stopColor="#b313b9" stopOpacity="0.8" />
+                  <stop offset="100%" stopColor="#b313b9" stopOpacity="0" />
                 </linearGradient>
                 <linearGradient id="waveGrad5" x1="0%" y1="0%" x2="100%" y2="0%">
                   <stop offset="0%" stopColor="#a855f7" stopOpacity="0" />
