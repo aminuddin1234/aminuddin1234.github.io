@@ -8,7 +8,7 @@
 
 A modern, interactive portfolio website showcasing data analytics and data science projects. Built with React, TypeScript, and modern web technologies.
 
-🔗 **[Live Demo](https://aminuddin1234.github.io/amin-portfolio/)**
+🔗 **[Live Demo](https://aminuddin1234.github.io/)**
 
 ## ✨ Features
 
@@ -151,7 +151,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🤝 Connect
 
 - GitHub: [@aminuddin1234](https://github.com/aminuddin1234)
-- Portfolio: [amin-portfolio](https://aminuddin1234.github.io/amin-portfolio/)
+- Portfolio: [amin-portfolio](https://aminuddin1234.github.io/)
 
 ---
 
