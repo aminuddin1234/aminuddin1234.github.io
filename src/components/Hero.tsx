@@ -400,9 +400,9 @@ export default function Hero({ onNavigate }: HeroProps) {
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
                           <div className="flex items-center gap-4 mb-4">
                 <p ref={greetingRef} className="text-[var(--accent-primary)] font-medium inline-block will-change-transform">
@@ -477,7 +477,7 @@ export default function Hero({ onNavigate }: HeroProps) {
           ref={scrollIndicatorRef}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
+          transition={{ duration: 1, delay: 1.2, ease: "easeOut" }}
           className="absolute bottom-10 left-1/2 -translate-x-1/2"
         >
           <motion.div

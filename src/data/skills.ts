@@ -1,20 +1,20 @@
 ﻿export interface Skill {
   name: string;
-  level: number;
+  category: "beginner" | "intermediate";
   projects: string[];
 }
 
 export const skills: Skill[] = [
-  { name: "Python", level: 90, projects: ["Household Income by State & Percentile at Malaysia", "Full Stack Data Project (Cafe Sales)", "Mini Project: Digit Recognition"] },
-  { name: "SQL", level: 80, projects: ["The Real Story Behind 2020~2023 Global Layoffs"] },
-  { name: "Power BI", level: 88, projects: ["Strategic Business Insights Dashboard: Monthly Sales Operations", "Superstore Profit Performance Dashboard"] },
-  { name: "Tableau", level: 85, projects: ["Household Income by State & Percentile at Malaysia", "Full Stack Data Project (Cafe Sales)", "The Real Story Behind 2020~2023 Global Layoffs"] },
-  { name: "Excel", level: 92, projects: ["Customer Insights & Bike Purchase Behavior Analysis"] },
-  { name: "Pandas", level: 88, projects: ["Household Income by State & Percentile at Malaysia", "Full Stack Data Project (Cafe Sales)"] },
-  { name: "Numpy", level: 85, projects: ["Household Income by State & Percentile at Malaysia", "Full Stack Data Project (Cafe Sales)", "Mini Project: Digit Recognition"] },
-  { name: "ETL", level: 82, projects: ["Household Income by State & Percentile at Malaysia", "Full Stack Data Project (Cafe Sales)", "The Real Story Behind 2020~2023 Global Layoffs"] },
-  { name: "TensorFlow", level: 70, projects: ["Mini Project: Digit Recognition"] },
-  { name: "Neural Network", level: 70, projects: ["Mini Project: Digit Recognition"] }
+  { name: "Python", category: "intermediate", projects: ["Household Income by State & Percentile at Malaysia", "Full Stack Data Project (Cafe Sales)", "Mini Project: Digit Recognition"] },
+  { name: "SQL", category: "intermediate", projects: ["The Real Story Behind 2020~2023 Global Layoffs"] },
+  { name: "Power BI", category: "intermediate", projects: ["Strategic Business Insights Dashboard: Monthly Sales Operations", "Superstore Profit Performance Dashboard"] },
+  { name: "Tableau", category: "intermediate", projects: ["Household Income by State & Percentile at Malaysia", "Full Stack Data Project (Cafe Sales)", "The Real Story Behind 2020~2023 Global Layoffs"] },
+  { name: "Excel", category: "intermediate", projects: ["Customer Insights & Bike Purchase Behavior Analysis"] },
+  { name: "Pandas", category: "intermediate", projects: ["Household Income by State & Percentile at Malaysia", "Full Stack Data Project (Cafe Sales)"] },
+  { name: "Numpy", category: "intermediate", projects: ["Household Income by State & Percentile at Malaysia", "Full Stack Data Project (Cafe Sales)", "Mini Project: Digit Recognition"] },
+  { name: "ETL", category: "intermediate", projects: ["Household Income by State & Percentile at Malaysia", "Full Stack Data Project (Cafe Sales)", "The Real Story Behind 2020~2023 Global Layoffs"] },
+  { name: "TensorFlow", category: "beginner", projects: ["Mini Project: Digit Recognition"] },
+  { name: "Neural Network", category: "beginner", projects: ["Mini Project: Digit Recognition"] }
 ];
 
 export const tools = [

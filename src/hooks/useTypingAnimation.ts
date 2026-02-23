@@ -20,8 +20,8 @@ interface TypingState {
 export function useTypingAnimation(config: TypingConfig) {
   const {
     lines,
-    typingSpeed = 25,
-    deletingSpeed = 25,
+    typingSpeed = 74,
+    deletingSpeed = 50,
     pauseAfterComplete = 100,
     pauseBeforeDelete = 150,
     pauseBeforeRestart = 50,
