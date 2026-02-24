@@ -85,7 +85,7 @@ export default function Footer() {
     ];
 
     let delay = 0;
-    lines.forEach((line, index) => {
+    lines.forEach((line) => {
       setTimeout(() => {
         setTerminalLines(prev => [...prev, line]);
       }, delay);
