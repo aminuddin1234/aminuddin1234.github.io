@@ -424,12 +424,16 @@ export default function Hero({ onNavigate }: HeroProps) {
                 className="inline-block"
               />
             </span>
-          </div>
+                    </div>
 
-           
-                {/* Mac Preview */}
-      <div className="w-full max-w-3xl mx-auto">
-        <div className="card bg-black border border-[#0d1117] rounded-xl p-6 shadow-2xl hover:shadow-[0_25px_60px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 backdrop-blur-md">
+          {/* Mac Preview Card */}
+          <motion.div
+            className="w-full max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 40, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 1.2, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+          >
+            <div className="card bg-black border border-[#0d1117] rounded-xl p-6 shadow-2xl hover:shadow-[0_25px_60px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 backdrop-blur-md">
           <div className="flex items-center gap-3 mb-5">
             <div className="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
             <div className="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
@@ -448,8 +452,9 @@ export default function Hero({ onNavigate }: HeroProps) {
         </div>
         <div className="bg-[rgba(13,17,23,0.5)] rounded-lg p-5 font-mono text-[14px] leading-relaxed border border-[#333] h-[350px] overflow-auto text-[#dcdcdc]">
           <TypingCodeBlock />
-        </div>
+                </div>
       </div>
+      </motion.div>
     </div>
 
           {/* CTA Buttons with anime.js pulse */}
@@ -490,9 +495,8 @@ export default function Hero({ onNavigate }: HeroProps) {
               transition={{ repeat: Infinity, duration: 1.5 }}
               className="scroll-dot w-1 h-3 bg-[var(--accent-primary)] rounded-full mt-2 will-change-transform"
             />
-          </motion.div>
+                    </motion.div>
         </motion.div>
-      </div>
     </section>
   );
 }
