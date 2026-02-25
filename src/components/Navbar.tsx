@@ -15,6 +15,32 @@ const navItems = [
   { id: "contact", label: "Contact", icon: Mail },
 ];
 
+// Helper to render label with < /> style - with romantic heartbeat animation
+const renderLabel = (label: string) => (
+  <motion.span
+    animate={{ 
+      scale: [1, 1.3, 1.05, 1.35, 1.05, 1.25, 1],
+      textShadow: [
+        "0 0 0px #00ff88",
+        "0 0 15px #ff6b9d, 0 0 30px #ff6b9d",
+        "0 0 5px #ff6b9d",
+        "0 0 20px #ff6b9d, 0 0 40px #ff6b9d",
+        "0 0 5px #ff6b9d",
+        "0 0 15px #ff6b9d, 0 0 30px #ff6b9d",
+        "0 0 0px #00ff88"
+      ]
+    }}
+    transition={{ 
+      duration: 1.2,
+      repeat: Infinity,
+      ease: "easeInOut"
+    }}
+    className="inline-block"
+  >
+    <span className="text-[#a855f7]">&lt;</span>{label}<span className="text-[#a855f7]">/&gt;</span>
+  </motion.span>
+);
+
 // Multiple heartbeat waves across the navbar
 const flatLine = "M0,50 L800,50";
 
@@ -43,7 +69,7 @@ export default function Navbar({ activeSection, onNavigate }: NavbarProps) {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? "glass py-3" : "py-5 bg-transparent"
+          isScrolled ? "bg-[#0a0a0a]/90 backdrop-blur-md border-b border-[#00ff88]/30 py-3" : "py-5 bg-transparent"
         }`}
       >
         <div className="container mx-auto px-6 flex items-center justify-between relative">
@@ -213,33 +239,87 @@ export default function Navbar({ activeSection, onNavigate }: NavbarProps) {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => onNavigate("hero")}
-            className="text-2xl font-bold gradient-text relative z-10"
+            className="text-2xl font-bold font-mono text-[#00ff88] relative z-10 tracking-wider"
           >
-            My Portfolio
+            <motion.span
+              animate={{ 
+                scale: [1, 1.3, 1.05, 1.35, 1.05, 1.25, 1],
+                textShadow: [
+                  "0 0 0px #00ff88",
+                  "0 0 20px #ff6b9d, 0 0 40px #ff6b9d",
+                  "0 0 5px #ff6b9d",
+                  "0 0 25px #ff6b9d, 0 0 50px #ff6b9d",
+                  "0 0 5px #ff6b9d",
+                  "0 0 20px #ff6b9d, 0 0 40px #ff6b9d",
+                  "0 0 0px #00ff88"
+                ]
+              }}
+              transition={{ 
+                duration: 1.2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              <span className="text-[#a855f7]">&lt;</span>My Portfolio<span className="text-[#a855f7]">/&gt;</span>
+            </motion.span>
+            <motion.span
+              animate={{ 
+                opacity: [1, 0, 1],
+                scale: [1, 1.5, 1]
+              }}
+              transition={{ 
+                duration: 0.5,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+              className="ml-1 inline-block w-2.5 h-6 bg-[#00ff88]"
+            />
           </motion.button>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-2 relative z-10">
+          <div className="hidden md:flex items-center gap-1 relative z-10 font-mono text-sm">
+            <motion.span
+              animate={{ 
+                scale: [1, 1.3, 1.05, 1.35, 1.05, 1.25, 1],
+                textShadow: [
+                  "0 0 0px #00ff88",
+                  "0 0 15px #ff6b9d, 0 0 30px #ff6b9d",
+                  "0 0 5px #ff6b9d",
+                  "0 0 20px #ff6b9d, 0 0 40px #ff6b9d",
+                  "0 0 5px #ff6b9d",
+                  "0 0 15px #ff6b9d, 0 0 30px #ff6b9d",
+                  "0 0 0px #00ff88"
+                ]
+              }}
+              transition={{ 
+                duration: 1.2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+              className="text-[#00ff88] mr-2"
+            >
+              $
+            </motion.span>
             {navItems.map((item) => (
               <motion.button
                 key={item.id}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => onNavigate(item.id)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                className={`px-3 py-1.5 border rounded text-sm font-medium transition-all font-mono ${
                   activeSection === item.id
-                    ? "bg-[var(--accent-primary)] text-[var(--bg-primary)]"
-                    : "text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card)]"
+                    ? "bg-[#00ff88] text-[#0a0a0a] border-[#00ff88]"
+                    : "text-[#00ff88] border-[#00ff88]/40 hover:border-[#00ff88] hover:bg-[#00ff88]/10"
                 }`}
               >
-                {item.label}
+                {renderLabel(item.label)}
               </motion.button>
             ))}
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 relative z-10"
+            className="md:hidden p-2 relative z-10 text-[#00ff88]"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -254,10 +334,32 @@ export default function Navbar({ activeSection, onNavigate }: NavbarProps) {
             initial={{ opacity: 0, x: "100%" }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
-            className="fixed inset-0 z-40 bg-[var(--bg-primary)] pt-20 px-6 md:hidden"
+            className="fixed inset-0 z-40 bg-[#0a0a0a]/95 backdrop-blur-sm pt-20 px-6 md:hidden border-l-2 border-[#00ff88]"
           >
-            <div className="flex flex-col gap-4">
-              {navItems.map((item) => (
+            <div className="flex flex-col gap-3 font-mono">
+              <motion.div
+                animate={{ 
+                  scale: [1, 1.3, 1.05, 1.35, 1.05, 1.25, 1],
+                  textShadow: [
+                    "0 0 0px #00ff88",
+                    "0 0 15px #ff6b9d, 0 0 30px #ff6b9d",
+                    "0 0 5px #ff6b9d",
+                    "0 0 20px #ff6b9d, 0 0 40px #ff6b9d",
+                    "0 0 5px #ff6b9d",
+                    "0 0 15px #ff6b9d, 0 0 30px #ff6b9d",
+                    "0 0 0px #00ff88"
+                  ]
+                }}
+                transition={{ 
+                  duration: 1.2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+                className="text-[#00ff88] text-sm mb-2"
+              >
+                <span className="mr-2">$</span>menu
+              </motion.div>
+              {navItems.map((item, index) => (
                 <motion.button
                   key={item.id}
                   initial={{ opacity: 0, x: 20 }}
@@ -267,16 +369,37 @@ export default function Navbar({ activeSection, onNavigate }: NavbarProps) {
                     onNavigate(item.id);
                     setIsMobileMenuOpen(false);
                   }}
-                  className={`flex items-center gap-3 px-6 py-4 rounded-lg text-lg font-medium transition-all ${
+                  className={`flex items-center gap-3 px-4 py-3 rounded border text-base font-medium transition-all font-mono ${
                     activeSection === item.id
-                      ? "bg-[var(--accent-primary)] text-[var(--bg-primary)]"
-                      : "bg-[var(--bg-card)] text-[var(--text-primary)]"
+                      ? "bg-[#00ff88] text-[#0a0a0a] border-[#00ff88]"
+                      : "text-[#00ff88] border-[#00ff88]/40 hover:border-[#00ff88] hover:bg-[#00ff88]/10"
                   }`}
                 >
-                  <item.icon size={20} />
-                  {item.label}
+                  <span className="text-xs opacity-60">[{index + 1}]</span>
+                  <item.icon size={18} />
+                  {renderLabel(item.label)}
                 </motion.button>
               ))}
+              <div className="mt-4 text-[#00ff88]/60 text-sm">
+                <span className="mr-2">$</span>
+                <motion.span
+                  animate={{ 
+                    opacity: [1, 0, 1],
+                    scale: [1, 1.2, 1],
+                    textShadow: [
+                      "0 0 0px #00ff88",
+                      "0 0 8px #ff6b9d",
+                      "0 0 0px #00ff88"
+                    ]
+                  }}
+                  transition={{ 
+                    duration: 1.2,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                  className="inline-block w-2 h-4 bg-[#00ff88] align-middle"
+                />
+              </div>
             </div>
           </motion.div>
         )}
