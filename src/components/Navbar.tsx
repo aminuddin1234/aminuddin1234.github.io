@@ -8,400 +8,210 @@ interface NavbarProps {
 }
 
 const navItems = [
-  { id: "hero", label: "Home", icon: Home },
+  { id: "hero",     label: "Home",     icon: Home },
   { id: "projects", label: "Projects", icon: Folder },
-  { id: "skills", label: "Skills", icon: BarChart3 },
-  { id: "about", label: "About", icon: User },
-  { id: "contact", label: "Contact", icon: Mail },
+  { id: "skills",   label: "Skills",   icon: BarChart3 },
+  { id: "about",    label: "About",    icon: User },
+  { id: "contact",  label: "Contact",  icon: Mail },
 ];
 
-// Helper to render label with < /> style - with romantic heartbeat animation
+/** Renders <Label/> tag style — no infinite textShadow animation (too heavy on mobile) */
 const renderLabel = (label: string) => (
-  <motion.span
-    animate={{ 
-      scale: [1, 1.3, 1.05, 1.35, 1.05, 1.25, 1],
-      textShadow: [
-        "0 0 0px #00ff88",
-        "0 0 15px #ff6b9d, 0 0 30px #ff6b9d",
-        "0 0 5px #ff6b9d",
-        "0 0 20px #ff6b9d, 0 0 40px #ff6b9d",
-        "0 0 5px #ff6b9d",
-        "0 0 15px #ff6b9d, 0 0 30px #ff6b9d",
-        "0 0 0px #00ff88"
-      ]
-    }}
-    transition={{ 
-      duration: 1.2,
-      repeat: Infinity,
-      ease: "easeInOut"
-    }}
-    className="inline-block"
-  >
-    <span className="text-[#a855f7]">&lt;</span>{label}<span className="text-[#a855f7]">/&gt;</span>
-  </motion.span>
+  <span className="inline-block">
+    <span className="text-[#a855f7]">&lt;</span>
+    {label}
+    <span className="text-[#a855f7]">/&gt;</span>
+  </span>
 );
 
-// Multiple heartbeat waves across the navbar
+// Heartbeat SVG paths (desktop only — hidden on mobile)
 const flatLine = "M0,50 L800,50";
-
-// Multiple wave patterns for continuous heartbeat feel
-const wave1 = "M0,50 L80,50 C85,50 88,48 90,45 C95,38 100,25 105,35 C110,45 115,50 120,50 C125,50 128,48 130,42 C135,32 140,15 145,25 C150,38 155,48 160,50 L800,50";
-const wave2 = "M0,50 L220,50 C225,50 228,48 230,45 C235,38 240,25 245,35 C250,45 255,50 260,50 C265,50 268,48 270,42 C275,32 280,15 285,25 C290,38 295,48 300,50 L800,50";
-const wave3 = "M0,50 L360,50 C365,50 368,48 370,45 C375,38 380,25 385,35 C390,45 395,50 400,50 C405,50 408,48 410,42 C415,32 420,15 425,25 C430,38 435,48 440,50 L800,50";
-const wave4 = "M0,50 L500,50 C505,50 508,48 510,45 C515,38 520,25 525,35 C530,45 535,50 540,50 C545,50 548,48 550,42 C555,32 560,15 565,25 C570,38 575,48 580,50 L800,50";
-const wave5 = "M0,50 L640,50 C645,50 648,48 650,45 C655,38 660,25 665,35 C670,45 675,50 680,50 C685,50 688,48 690,42 C695,32 700,15 705,25 C710,38 715,48 720,50 L800,50";
+const waves = [
+  "M0,50 L80,50 C85,50 88,48 90,45 C95,38 100,25 105,35 C110,45 115,50 120,50 C125,50 128,48 130,42 C135,32 140,15 145,25 C150,38 155,48 160,50 L800,50",
+  "M0,50 L220,50 C225,50 228,48 230,45 C235,38 240,25 245,35 C250,45 255,50 260,50 C265,50 268,48 270,42 C275,32 280,15 285,25 C290,38 295,48 300,50 L800,50",
+  "M0,50 L360,50 C365,50 368,48 370,45 C375,38 380,25 385,35 C390,45 395,50 400,50 C405,50 408,48 410,42 C415,32 420,15 425,25 C430,38 435,48 440,50 L800,50",
+];
+const waveColors = ["#00ff88", "#56acf4", "#ff6b9d"];
 
 export default function Navbar({ activeSection, onNavigate }: NavbarProps) {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled]       = useState(false);
+  const [isMobileMenuOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setIsScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Close mobile menu when user scrolls (common UX expectation)
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+    const close = () => setMobileOpen(false);
+    window.addEventListener("scroll", close, { passive: true, once: true });
+    return () => window.removeEventListener("scroll", close);
+  }, [isMobileMenuOpen]);
+
+  const handleNavigate = (id: string) => {
+    onNavigate(id);
+    setMobileOpen(false);
+  };
 
   return (
     <>
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
+        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? "bg-[#0a0a0a]/90 backdrop-blur-md border-b border-[#00ff88]/30 py-3" : "py-5 bg-transparent"
+          isScrolled
+            ? "bg-[#0a0a0a]/92 backdrop-blur-md border-b border-[#00ff88]/25 py-3"
+            : "py-4 sm:py-5 bg-transparent"
         }`}
       >
-        <div className="container mx-auto px-6 flex items-center justify-between relative">
-          {/* Multiple Heartbeat Waves */}
-          <div className="absolute inset-0 pointer-events-none overflow-hidden flex items-center justify-center">
-            <svg 
-              viewBox="0 0 800 100" 
-              preserveAspectRatio="none" 
-              className="w-full h-full"
-              style={{ minHeight: '100%' }}
-            >
+        <div className="container mx-auto px-4 sm:px-6 flex items-center justify-between relative">
+
+          {/* Heartbeat waves — desktop only, 3 instead of 5 to save GPU */}
+          <div className="absolute inset-0 pointer-events-none overflow-hidden items-center justify-center hidden md:flex">
+            <svg viewBox="0 0 800 100" preserveAspectRatio="none" className="w-full h-full">
               <defs>
-                {/* Gradient for each wave */}
-                <linearGradient id="waveGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#00ff88" stopOpacity="0" />
-                  <stop offset="40%" stopColor="#00ff88" stopOpacity="0.8" />
-                  <stop offset="60%" stopColor="#00ff88" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#00ff88" stopOpacity="0" />
-                </linearGradient>
-                <linearGradient id="waveGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#56acf4" stopOpacity="0" />
-                  <stop offset="40%" stopColor="#56acf4" stopOpacity="0.8" />
-                  <stop offset="60%" stopColor="#56acf4" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#56acf4" stopOpacity="0" />
-                </linearGradient>
-                <linearGradient id="waveGrad3" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#ff6b9d" stopOpacity="0" />
-                  <stop offset="40%" stopColor="#ff6b9d" stopOpacity="0.8" />
-                  <stop offset="60%" stopColor="#ff6b9d" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#ff6b9d" stopOpacity="0" />
-                </linearGradient>
-                <linearGradient id="waveGrad4" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#b313b9" stopOpacity="0" />
-                  <stop offset="40%" stopColor="#b313b9" stopOpacity="0.8" />
-                  <stop offset="60%" stopColor="#b313b9" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#b313b9" stopOpacity="0" />
-                </linearGradient>
-                <linearGradient id="waveGrad5" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#a855f7" stopOpacity="0" />
-                  <stop offset="40%" stopColor="#a855f7" stopOpacity="0.8" />
-                  <stop offset="60%" stopColor="#a855f7" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#a855f7" stopOpacity="0" />
-                </linearGradient>
+                {waveColors.map((color, i) => (
+                  <linearGradient key={i} id={`wg${i}`} x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%"   stopColor={color} stopOpacity="0" />
+                    <stop offset="45%"  stopColor={color} stopOpacity="0.75" />
+                    <stop offset="55%"  stopColor={color} stopOpacity="0.75" />
+                    <stop offset="100%" stopColor={color} stopOpacity="0" />
+                  </linearGradient>
+                ))}
               </defs>
-              
-              {/* Reference lines */}
-              <line x1="0" y1="35" x2="800" y2="35" stroke="#333" strokeWidth="0.3" opacity="0.3" />
-              <line x1="0" y1="65" x2="800" y2="65" stroke="#333" strokeWidth="0.3" opacity="0.3" />
-              
-              {/* Wave 1 - Green */}
-              <motion.path
-                d={flatLine}
-                fill="none"
-                stroke="url(#waveGrad1)"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ 
-                  pathLength: [0, 0.3, 0.3, 1, 1, 0],
-                  opacity: [0, 0.4, 0.5, 0.7, 0.3, 0],
-                  d: [flatLine, flatLine, flatLine, wave1, wave1, flatLine]
-                }}
-                transition={{ 
-                  duration: 5,
-                  repeat: Infinity,
-                  times: [0, 0.1, 0.3, 0.45, 0.7, 1],
-                  ease: "linear"
-                }}
-              />
-              
-              {/* Wave 2 - Blue */}
-              <motion.path
-                d={flatLine}
-                fill="none"
-                stroke="url(#waveGrad2)"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ 
-                  pathLength: [0, 0.3, 0.3, 1, 1, 0],
-                  opacity: [0, 0.4, 0.5, 0.7, 0.3, 0],
-                  d: [flatLine, flatLine, flatLine, wave2, wave2, flatLine]
-                }}
-                transition={{ 
-                  duration: 5,
-                  repeat: Infinity,
-                  times: [0, 0.1, 0.3, 0.45, 0.7, 1],
-                  ease: "linear",
-                  delay: 1
-                }}
-              />
-              
-              {/* Wave 3 - Pink */}
-              <motion.path
-                d={flatLine}
-                fill="none"
-                stroke="url(#waveGrad3)"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ 
-                  pathLength: [0, 0.3, 0.3, 1, 1, 0],
-                  opacity: [0, 0.4, 0.5, 0.7, 0.3, 0],
-                  d: [flatLine, flatLine, flatLine, wave3, wave3, flatLine]
-                }}
-                transition={{ 
-                  duration: 5,
-                  repeat: Infinity,
-                  times: [0, 0.1, 0.3, 0.45, 0.7, 1],
-                  ease: "linear",
-                  delay: 2
-                }}
-              />
-              
-              {/* Wave 4 - Yellow */}
-              <motion.path
-                d={flatLine}
-                fill="none"
-                stroke="url(#waveGrad4)"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ 
-                  pathLength: [0, 0.3, 0.3, 1, 1, 0],
-                  opacity: [0, 0.4, 0.5, 0.7, 0.3, 0],
-                  d: [flatLine, flatLine, flatLine, wave4, wave4, flatLine]
-                }}
-                transition={{ 
-                  duration: 5,
-                  repeat: Infinity,
-                  times: [0, 0.1, 0.3, 0.45, 0.7, 1],
-                  ease: "linear",
-                  delay: 3
-                }}
-              />
-              
-              {/* Wave 5 - Purple */}
-              <motion.path
-                d={flatLine}
-                fill="none"
-                stroke="url(#waveGrad5)"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ 
-                  pathLength: [0, 0.3, 0.3, 1, 1, 0],
-                  opacity: [0, 0.4, 0.5, 0.7, 0.3, 0],
-                  d: [flatLine, flatLine, flatLine, wave5, wave5, flatLine]
-                }}
-                transition={{ 
-                  duration: 5,
-                  repeat: Infinity,
-                  times: [0, 0.1, 0.3, 0.45, 0.7, 1],
-                  ease: "linear",
-                  delay: 4
-                }}
-              />
+              {waves.map((wave, i) => (
+                <motion.path
+                  key={i}
+                  d={flatLine}
+                  fill="none"
+                  stroke={`url(#wg${i})`}
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  animate={{
+                    opacity: [0, 0.5, 0.7, 0.3, 0],
+                    d: [flatLine, flatLine, wave, wave, flatLine],
+                  }}
+                  transition={{
+                    duration: 5,
+                    repeat: Infinity,
+                    times: [0, 0.1, 0.4, 0.7, 1],
+                    ease: "linear",
+                    delay: i * 1.4,
+                  }}
+                />
+              ))}
             </svg>
           </div>
 
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => onNavigate("hero")}
-            className="text-2xl font-bold font-mono text-[#00ff88] relative z-10 tracking-wider"
+          {/* Logo */}
+          <button
+            onClick={() => handleNavigate("hero")}
+            className="text-xl sm:text-2xl font-bold font-mono text-[#00ff88] relative z-10 tracking-wider min-h-[44px] flex items-center"
+            aria-label="Go to top"
           >
-            <motion.span
-              animate={{ 
-                scale: [1, 1.3, 1.05, 1.35, 1.05, 1.25, 1],
-                textShadow: [
-                  "0 0 0px #00ff88",
-                  "0 0 20px #ff6b9d, 0 0 40px #ff6b9d",
-                  "0 0 5px #ff6b9d",
-                  "0 0 25px #ff6b9d, 0 0 50px #ff6b9d",
-                  "0 0 5px #ff6b9d",
-                  "0 0 20px #ff6b9d, 0 0 40px #ff6b9d",
-                  "0 0 0px #00ff88"
-                ]
-              }}
-              transition={{ 
-                duration: 1.2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            >
-              <span className="text-[#a855f7]">&lt;</span>My Portfolio<span className="text-[#a855f7]">/&gt;</span>
-            </motion.span>
-            <motion.span
-              animate={{ 
-                opacity: [1, 0, 1],
-                scale: [1, 1.5, 1]
-              }}
-              transition={{ 
-                duration: 0.5,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-              className="ml-1 inline-block w-2.5 h-6 bg-[#00ff88]"
+            <span className="text-[#a855f7]">&lt;</span>
+            My Portfolio
+            <span className="text-[#a855f7]">/&gt;</span>
+            {/* Blinking cursor — CSS only, no JS */}
+            <span
+              className="ml-1 inline-block w-2.5 h-5 bg-[#00ff88]"
+              style={{ animation: "blink 1s step-end infinite" }}
+              aria-hidden
             />
-          </motion.button>
+          </button>
 
-          {/* Desktop Navigation */}
+          {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-1 relative z-10 font-mono text-sm">
-            <motion.span
-              animate={{ 
-                scale: [1, 1.3, 1.05, 1.35, 1.05, 1.25, 1],
-                textShadow: [
-                  "0 0 0px #00ff88",
-                  "0 0 15px #ff6b9d, 0 0 30px #ff6b9d",
-                  "0 0 5px #ff6b9d",
-                  "0 0 20px #ff6b9d, 0 0 40px #ff6b9d",
-                  "0 0 5px #ff6b9d",
-                  "0 0 15px #ff6b9d, 0 0 30px #ff6b9d",
-                  "0 0 0px #00ff88"
-                ]
-              }}
-              transition={{ 
-                duration: 1.2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-              className="text-[#00ff88] mr-2"
-            >
-              $
-            </motion.span>
+            <span className="text-[#00ff88] mr-2 select-none">$</span>
             {navItems.map((item) => (
-              <motion.button
+              <button
                 key={item.id}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => onNavigate(item.id)}
-                className={`px-3 py-1.5 border rounded text-sm font-medium transition-all font-mono ${
+                onClick={() => handleNavigate(item.id)}
+                className={`px-3 py-1.5 border rounded text-sm font-medium transition-colors duration-200 font-mono min-h-[36px] ${
                   activeSection === item.id
                     ? "bg-[#00ff88] text-[#0a0a0a] border-[#00ff88]"
                     : "text-[#00ff88] border-[#00ff88]/40 hover:border-[#00ff88] hover:bg-[#00ff88]/10"
                 }`}
               >
                 {renderLabel(item.label)}
-              </motion.button>
+              </button>
             ))}
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Hamburger */}
           <button
-            className="md:hidden p-2 relative z-10 text-[#00ff88]"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden p-2 relative z-10 text-[#00ff88] min-h-[44px] min-w-[44px] flex items-center justify-center touch-manipulation"
+            onClick={() => setMobileOpen((v) => !v)}
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </motion.nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile drawer */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, x: "100%" }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: "100%" }}
-            className="fixed inset-0 z-40 bg-[#0a0a0a]/95 backdrop-blur-sm pt-20 px-6 md:hidden border-l-2 border-[#00ff88]"
-          >
-            <div className="flex flex-col gap-3 font-mono">
-              <motion.div
-                animate={{ 
-                  scale: [1, 1.3, 1.05, 1.35, 1.05, 1.25, 1],
-                  textShadow: [
-                    "0 0 0px #00ff88",
-                    "0 0 15px #ff6b9d, 0 0 30px #ff6b9d",
-                    "0 0 5px #ff6b9d",
-                    "0 0 20px #ff6b9d, 0 0 40px #ff6b9d",
-                    "0 0 5px #ff6b9d",
-                    "0 0 15px #ff6b9d, 0 0 30px #ff6b9d",
-                    "0 0 0px #00ff88"
-                  ]
-                }}
-                transition={{ 
-                  duration: 1.2,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-                className="text-[#00ff88] text-sm mb-2"
-              >
-                <span className="mr-2">$</span>menu
-              </motion.div>
-              {navItems.map((item, index) => (
-                <motion.button
-                  key={item.id}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.1 }}
-                  onClick={() => {
-                    onNavigate(item.id);
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className={`flex items-center gap-3 px-4 py-3 rounded border text-base font-medium transition-all font-mono ${
-                    activeSection === item.id
-                      ? "bg-[#00ff88] text-[#0a0a0a] border-[#00ff88]"
-                      : "text-[#00ff88] border-[#00ff88]/40 hover:border-[#00ff88] hover:bg-[#00ff88]/10"
-                  }`}
+          <>
+            {/* Backdrop */}
+            <motion.div
+              key="backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setMobileOpen(false)}
+              className="fixed inset-0 z-40 bg-black/60 md:hidden"
+            />
+
+            {/* Slide-in drawer */}
+            <motion.div
+              key="drawer"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "tween", duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+              className="fixed top-0 right-0 bottom-0 z-50 w-72 max-w-[85vw] bg-[#0a0a0a] border-l border-[#00ff88]/30 md:hidden flex flex-col"
+              style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+            >
+              {/* Drawer header */}
+              <div className="flex items-center justify-between px-5 py-4 border-b border-[#1a3a1a]">
+                <span className="font-mono text-[#00ff88] text-sm">
+                  <span className="opacity-60 mr-1">$</span> menu
+                </span>
+                <button
+                  onClick={() => setMobileOpen(false)}
+                  className="p-2 text-[#00ff88] min-h-[44px] min-w-[44px] flex items-center justify-center touch-manipulation"
+                  aria-label="Close menu"
                 >
-                  <span className="text-xs opacity-60">[{index + 1}]</span>
-                  <item.icon size={18} />
-                  {renderLabel(item.label)}
-                </motion.button>
-              ))}
-              <div className="mt-4 text-[#00ff88]/60 text-sm">
-                <span className="mr-2">$</span>
-                <motion.span
-                  animate={{ 
-                    opacity: [1, 0, 1],
-                    scale: [1, 1.2, 1],
-                    textShadow: [
-                      "0 0 0px #00ff88",
-                      "0 0 8px #ff6b9d",
-                      "0 0 0px #00ff88"
-                    ]
-                  }}
-                  transition={{ 
-                    duration: 1.2,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                  className="inline-block w-2 h-4 bg-[#00ff88] align-middle"
-                />
+                  <X size={20} />
+                </button>
               </div>
-            </div>
-          </motion.div>
+
+              {/* Nav items */}
+              <nav className="flex flex-col gap-2 p-4 flex-1 overflow-y-auto">
+                {navItems.map((item, index) => (
+                  <button
+                    key={item.id}
+                    onClick={() => handleNavigate(item.id)}
+                    className={`flex items-center gap-3 px-4 py-3.5 rounded-lg border text-base font-medium transition-colors duration-200 font-mono text-left min-h-[52px] touch-manipulation ${
+                      activeSection === item.id
+                        ? "bg-[#00ff88] text-[#0a0a0a] border-[#00ff88]"
+                        : "text-[#00ff88] border-[#00ff88]/30 hover:border-[#00ff88] active:bg-[#00ff88]/10"
+                    }`}
+                  >
+                    <span className="text-xs opacity-50 w-5 shrink-0">[{index + 1}]</span>
+                    <item.icon size={18} aria-hidden />
+                    {renderLabel(item.label)}
+                  </button>
+                ))}
+              </nav>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>

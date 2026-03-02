@@ -84,13 +84,27 @@ export default function Footer() {
       ">System ready."
     ];
 
+    let mounted = true;
+    const timeouts: ReturnType<typeof setTimeout>[] = [];
+    
+    // Reset state
+    setTerminalLines([]);
+
     let delay = 0;
     lines.forEach((line) => {
-      setTimeout(() => {
-        setTerminalLines(prev => [...prev, line]);
+      const timeout = setTimeout(() => {
+        if (mounted) {
+          setTerminalLines(prev => [...prev, line]);
+        }
       }, delay);
+      timeouts.push(timeout);
       delay += 400;
     });
+
+    return () => {
+      mounted = false;
+      timeouts.forEach(t => clearTimeout(t));
+    };
   }, []);
 
   // Anime.js: Analytics panel entrance (terminal style)

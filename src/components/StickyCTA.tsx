@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, X } from "lucide-react";
 
@@ -8,87 +8,87 @@ interface StickyCTAProps {
 }
 
 const ctaMessages: Record<string, string> = {
-  hero: "View My Portfolio Project →",
-  projects: "Check Out My Skills Radar →",
-  skills: "Learn More About Me →",
-  about: "Get In Touch Today →",
-  contact: "View My Projects →",
+  hero:     "View My Projects →",
+  projects: "Check Out My Skills →",
+  skills:   "Learn More About Me →",
+  about:    "Get In Touch →",
+  contact:  "View My Projects →",
+};
+
+const nextSection: Record<string, string> = {
+  hero:     "projects",
+  projects: "skills",
+  skills:   "about",
+  about:    "contact",
+  contact:  "projects",
 };
 
 export default function StickyCTA({ activeSection, onNavigate }: StickyCTAProps) {
   const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
-    let ticking = false;
-    
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const currentScrollY = window.scrollY;
-          
-          // Hide when scrolling down, show when scrolling up
-          if (currentScrollY > lastScrollY && currentScrollY > 300) {
-            setIsVisible(false);
-          } else {
-            setIsVisible(true);
-          }
-          
-          setLastScrollY(currentScrollY);
-          ticking = false;
-        });
-        ticking = true;
-      }
+    let raf: number | null = null;
+
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        const current = window.scrollY;
+        if (current > lastScrollY.current && current > 300) {
+          setIsVisible(false);
+        } else {
+          setIsVisible(true);
+        }
+        lastScrollY.current = current;
+        raf = null;
+      });
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
 
-  const getNextSection = () => {
-    switch (activeSection) {
-      case "hero":
-        return "projects";
-      case "projects":
-        return "skills";
-      case "skills":
-        return "about";
-      case "about":
-        return "contact";
-      case "contact":
-        return "projects";
-      default:
-        return "projects";
-    }
-  };
+  if (activeSection === "contact") return null;
 
   return (
     <AnimatePresence mode="wait">
-      {isVisible && activeSection !== "contact" && (
+      {isVisible && (
         <motion.div
           key="sticky-cta"
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 100 }}
-          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40"
+          transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          /* Safe-area inset so the pill sits above the iOS home indicator */
+          className="fixed bottom-0 left-0 right-0 z-40 flex justify-center"
+          style={{ paddingBottom: "max(1.5rem, env(safe-area-inset-bottom))" }}
         >
           <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="glass rounded-full px-6 py-3 flex items-center gap-4 shadow-lg shadow-[var(--accent-primary)]/20 will-change-transform"
+            whileTap={{ scale: 0.96 }}
+            className="glass rounded-full px-4 sm:px-6 py-2.5 sm:py-3 flex items-center gap-3 sm:gap-4 shadow-lg shadow-[var(--accent-primary)]/20 max-w-[90vw]"
           >
             <button
-              onClick={() => onNavigate(getNextSection())}
-              className="flex items-center gap-2 text-sm font-medium whitespace-nowrap"
+              onClick={() => onNavigate(nextSection[activeSection] ?? "projects")}
+              className="flex items-center gap-2 text-xs sm:text-sm font-medium whitespace-nowrap min-h-[36px] touch-manipulation"
             >
-              {ctaMessages[activeSection] || ctaMessages.hero}
-              <ArrowRight size={16} className="text-[var(--accent-primary)]" />
+              <span className="truncate max-w-[180px] sm:max-w-none">
+                {ctaMessages[activeSection] ?? ctaMessages.hero}
+              </span>
+              <ArrowRight size={15} className="text-[var(--accent-primary)] shrink-0" aria-hidden />
             </button>
+
+            {/* Divider */}
+            <span className="w-px h-5 bg-[var(--border-color)] shrink-0" aria-hidden />
+
             <button
               onClick={() => setIsVisible(false)}
-              className="p-1 hover:bg-[var(--bg-secondary)] rounded-full transition-colors"
+              className="p-1.5 hover:bg-[var(--bg-secondary)] rounded-full transition-colors shrink-0 min-h-[36px] min-w-[36px] flex items-center justify-center touch-manipulation"
+              aria-label="Dismiss"
             >
-              <X size={16} />
+              <X size={15} />
             </button>
           </motion.div>
         </motion.div>
