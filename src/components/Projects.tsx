@@ -470,13 +470,13 @@ function ProjectCard({ project, index, isExpanded, onToggle }: ProjectCardProps)
                   </p>
                 </div>
 
-                {/* Analysis */}
+                {/* Action */}
                 <div className="star-section space-y-2">
                   <h4 className="text-sm font-semibold text-[var(--accent-primary)] flex items-center gap-2">
                     <span className="star-badge w-6 h-6 rounded-full bg-[var(--accent-primary)] text-[var(--bg-primary)] flex items-center justify-center text-xs">
                       A
                     </span>
-                    Analysis
+                    Action
                   </h4>
                   <p className="text-sm text-[var(--text-secondary)] mt-1 pl-8">
                     {project.analysis}
