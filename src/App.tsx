@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Projects from "./components/Projects";
+import Visualization from "./components/Visualization";
 import Skills from "./components/Skills";
 import About from "./components/About";
 import Contact from "./components/Contact";
@@ -28,7 +29,7 @@ export default function App() {
   useEffect(() => {
     const handleScroll = () => {
       try {
-        const sections = ["hero", "projects", "skills", "about", "contact"];
+        const sections = ["hero", "projects", "visualization", "skills", "about", "contact"];
         
         for (const section of sections) {
           const element = document.getElementById(section);
@@ -67,6 +68,7 @@ export default function App() {
       <main>
         <Hero onNavigate={handleNavigate} />
         <Projects />
+        <Visualization />
         <Skills />
         <About />
         <Contact />

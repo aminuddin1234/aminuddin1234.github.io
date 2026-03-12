@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Home, Folder, User, Mail, BarChart3 } from "lucide-react";
+import { Menu, X, Home, Folder, User, Mail, BarChart3, Image } from "lucide-react";
 
 interface NavbarProps {
   activeSection: string;
@@ -8,11 +8,12 @@ interface NavbarProps {
 }
 
 const navItems = [
-  { id: "hero",     label: "Home",     icon: Home },
-  { id: "projects", label: "Projects", icon: Folder },
-  { id: "skills",   label: "Skills",   icon: BarChart3 },
-  { id: "about",    label: "About",    icon: User },
-  { id: "contact",  label: "Contact",  icon: Mail },
+  { id: "hero",             label: "Home",           icon: Home },
+  { id: "projects",         label: "Projects",       icon: Folder },
+  { id: "visualization",    label: "Visualizations", icon: Image },
+  { id: "skills",           label: "Skills",         icon: BarChart3 },
+  { id: "about",            label: "About",          icon: User },
+  { id: "contact",          label: "Contact",        icon: Mail },
 ];
 
 /** Renders <Label/> tag style — no infinite textShadow animation (too heavy on mobile) */
