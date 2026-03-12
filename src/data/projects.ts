@@ -148,6 +148,25 @@ export const projects: Project[] = [
       { label: "Framework", value: "TensorFlow" }
     ],
     github: "https://github.com/aminuddin1234/Artificial_inteligent_and_machine_learning_course/tree/main/AI%20%26%20ML%20courses/Day%2030%20-%20Mini%20Project"
+  },
+  {
+    id: 8,
+    title: "Logistics Analysis Dashboard",
+    description: "Comprehensive Power BI dashboard analyzing logistics operations for PKT Logistics Group, covering executive KPIs, delivery performance, warehouse operations, and client revenue analysis.",
+    tools: ["Power BI", "DAX"],
+    domain: "Business Intelligence",
+    situation: "PKT Logistics Group needed visibility into supply chain performance across 5 warehouses, 1,200+ shipments, and multiple client tiers to optimize operations and improve on-time delivery rates.",
+    task: "Build a multi-page Power BI dashboard with star schema data model to analyze revenue, delivery performance, warehouse utilization, and client profitability for logistics decision-making.",
+    analysis: "Designed star schema with 3 fact tables (shipments, inventory, revenue) and 3 dimension tables (client, warehouse, service). Created 15+ DAX measures for KPIs including OTD rate, profit margin, and time intelligence. Simulated realistic logistics datasets using Python pandas.",
+    result: "Analyzed RM 28.87M revenue across 1,200 shipments with 33.66% profit margin. Identified 86.08% OTD rate with 167 delayed shipments, 78.84% average warehouse utilization, and top clients (Volkswagen RM 5.2M, Proton RM 5.1M).",
+    learning: "Star schema modeling enables efficient multi-dimensional analysis. DAX time intelligence functions unlock powerful period-over-period comparisons. Logistics analytics requires balancing operational efficiency with client profitability.",
+    metrics: [
+      { label: "Revenue Analyzed", value: "RM 28.8M" },
+      { label: "Shipments Tracked", value: "1,200" },
+      { label: "OTD Rate", value: "86.08%" }
+    ],
+    github: "https://github.com/aminuddin1234/Artificial_inteligent_and_machine_learning_course/tree/main/portfolio/Logistics%20Analysis%20Dashboard",
+    liveLink: "https://github.com/aminuddin1234/Artificial_inteligent_and_machine_learning_course/blob/main/portfolio/Logistics%20Analysis%20Dashboard/Dashboards/PKT_vis1.png"
   }
 ];
 
